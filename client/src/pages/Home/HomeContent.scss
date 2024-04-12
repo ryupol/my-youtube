@@ -1,0 +1,7 @@
+@use "@/mixin.scss" as m;
+
+#home .container {
+  @include m.grid($columns: 1fr 1fr 1fr, $gap: 16px, $item: top);
+  padding: 0 24px 20px 0;
+  margin: 82px 24px;
+}

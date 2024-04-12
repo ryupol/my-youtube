@@ -1,0 +1,50 @@
+@use "@/mixin.scss" as m;
+
+.card {
+  padding: 4px;
+  border-radius: 4px;
+
+  &:active {
+    outline: 1px solid white;
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: outline 1s background-color 0.1s ease-in;
+  }
+
+  .thumbnail {
+    aspect-ratio: 16/9;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    img {
+      width: 100%;
+    }
+  }
+
+  .profile {
+    border-radius: 12px;
+    margin-bottom: 12px;
+    width: 36px;
+    overflow: hidden;
+    img {
+      width: 100%;
+    }
+  }
+
+  .about {
+    @include m.grid($item: flex-start, $columns: 48px 1fr 24px);
+  }
+
+  .title {
+    @include m.twoLine();
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 6px;
+    color: white;
+  }
+  .channel,
+  .views {
+    line-height: 1.4;
+    font-size: 14px;
+    color: #aaaaaa;
+  }
+}

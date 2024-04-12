@@ -1,0 +1,84 @@
+@mixin flex($justify: space-between, $item: center, $flex: null, $direction: row) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $item;
+  flex: $flex;
+  flex-direction: $direction;
+}
+
+@mixin grid($justify: space-between, $item: center, $columns: null, $rows: null, $gap: null) {
+  display: grid;
+  justify-content: $justify;
+  align-items: $item;
+  grid-template-columns: $columns;
+  grid-template-rows: $rows;
+  gap: $gap;
+}
+
+@mixin twoLine() {
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+}
+
+@mixin primary-button($color: #000, $bg-color: #fff) {
+  background-color: $bg-color;
+  color: $color;
+  font-size: 14px;
+  padding: 0 16px;
+  height: 36px;
+  border: none;
+  border-radius: 50px;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.9;
+  }
+  &:active {
+    opacity: 0.7;
+  }
+}
+
+@mixin secondary-button() {
+  @include primary-button($color: #fff, $bg-color: rgba(255, 255, 255, 0.1));
+  &:hover {
+    opacity: 1;
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  &:active {
+    opacity: 1;
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+}
+
+@mixin icon-button($size: 40px) {
+  @include flex($justify: center);
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+@mixin tooltip {
+  .tooltip {
+    opacity: 0;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 8px;
+    font-size: 12px;
+    margin-top: 16px;
+    left: 50%;
+    transform: translate(-50%);
+    position: absolute;
+    z-index: 11;
+    cursor: default;
+  }
+}

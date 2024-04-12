@@ -1,0 +1,25 @@
+@use "@/mixin.scss" as m;
+
+.sidebar .item {
+  @include m.grid($columns: 50px 1fr);
+  padding: 6px 8px;
+  margin: 0 4px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+  }
+  .icon {
+    display: flex;
+    justify-content: flex-start;
+  }
+}
+
+.sidebar .active {
+  font-weight: 500;
+  background-color: rgba(255, 255, 255, 0.1);
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+}

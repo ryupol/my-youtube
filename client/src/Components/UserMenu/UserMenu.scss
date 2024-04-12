@@ -1,0 +1,66 @@
+@use "@/mixin.scss" as m;
+
+.user-container {
+  @include m.flex($justify: flex-end, $flex: 0 0 225px);
+}
+.upload {
+  position: relative;
+  .item {
+    @include m.icon-button();
+    margin: 0 10px;
+  }
+  .item:hover + .tooltip {
+    opacity: 1;
+    transition: opacity 0.3s ease-in;
+  }
+  @include m.tooltip;
+}
+
+.user-box {
+  margin: 0 12px;
+  position: relative;
+  .user-image {
+    @include m.flex();
+    @include m.icon-button(34px);
+    &:active {
+      outline: 1px solid rgb(62, 166, 255);
+    }
+  }
+  .header-box {
+    @include m.grid($item: top, $columns: 54px 230px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 16px;
+    .user-info {
+      @include m.flex($direction: column, $item: flex-start);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .view-channel {
+      font-size: 14px;
+      padding-top: 12px;
+      color: rgb(62, 166, 255);
+    }
+  }
+  .footer-box {
+    padding: 16px;
+    button {
+      @include m.primary-button();
+    }
+  }
+  img {
+    width: 40px;
+  }
+}
+
+.open-menu {
+  border-radius: 12px;
+  background-color: rgb(40, 40, 40);
+  position: absolute;
+  z-index: 12;
+  top: 40px;
+  right: 0;
+}
+
+.close-menu {
+  display: none;
+}

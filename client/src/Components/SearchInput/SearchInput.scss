@@ -1,0 +1,41 @@
+@use "@/mixin.scss" as m;
+
+.searcher {
+  @include m.flex($justify: flex-end, $flex: 0 1 600px);
+  width: 100%;
+  height: 40px;
+  input {
+    border-radius: 40px 0 0 40px;
+    outline: 1px solid rgb(48, 48, 48);
+    outline-offset: -1px;
+    height: 100%;
+    width: 100%;
+    padding: 0 0 0 20px;
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 16px;
+    &:focus-visible {
+      outline: 1px solid rgb(62, 166, 255);
+    }
+  }
+  .btn-box {
+    position: relative;
+  }
+  .btn {
+    @include m.flex($justify: center);
+    width: 64px;
+    height: 40px;
+    border-radius: 0 40px 40px 0;
+    border: 1px solid rgb(48, 48, 48);
+    border-left: none;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.08);
+    &:hover,
+    &:hover + .tooltip {
+      cursor: pointer;
+      opacity: 1;
+      transition: opacity 0.1s ease-in;
+    }
+  }
+  @include m.tooltip;
+}

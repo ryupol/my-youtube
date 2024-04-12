@@ -1,0 +1,10 @@
+@use "@/mixin.scss" as m;
+
+.signin-container {
+  width: 100%;
+  @include m.flex($justify: center, $direction: column);
+  height: 100vh;
+  .button-container {
+    @include m.flex();
+  }
+}

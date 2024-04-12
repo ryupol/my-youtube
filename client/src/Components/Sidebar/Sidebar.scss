@@ -1,0 +1,23 @@
+@use "@/mixin.scss" as m;
+
+.sidebar {
+  margin-top: 56px;
+  padding: 12px;
+  width: 240px;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+  background-color: inherit;
+  z-index: 10;
+  .header {
+    padding: 0 12px;
+  }
+  .main-menu,
+  .you-menu {
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+}
