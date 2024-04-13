@@ -19,6 +19,9 @@
     }
   }
   .btn-box {
+    padding: 0;
+    border: none;
+    background-color: transparent;
     position: relative;
   }
   .btn {
@@ -34,7 +37,6 @@
     &:hover + .tooltip {
       cursor: pointer;
       opacity: 1;
-      transition: opacity 0.1s ease-in;
     }
   }
   @include m.tooltip;

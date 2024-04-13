@@ -46,7 +46,7 @@ function UserMenu() {
   }, []);
 
   const handleLogout = async () => {
-    await axios.post("/api/users/logout");
+    await axios.post("/api/users/signout");
     dispatch(setUser(null));
   };
 
@@ -70,7 +70,9 @@ function UserMenu() {
 
             <div className={openMenu ? "open-menu" : "close-menu"}>
               <div className="header-box">
-                <img src={user.profile_url} alt="Profile" />
+                <div className="profile">
+                  <img src={user.profile_url} alt="Profile" />
+                </div>
                 <div className="user-info">
                   <p>{user.name}</p>
                   <p>{`@${user.username}`}</p>

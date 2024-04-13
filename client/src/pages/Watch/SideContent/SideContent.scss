@@ -1,0 +1,25 @@
+@use "@/mixin.scss" as m;
+
+.side-content {
+  padding: 24px 12px;
+}
+
+.side-content .card {
+  @include m.grid($columns: 168px 202px, $item: start);
+  .profile {
+    display: none;
+  }
+  .about {
+    padding: 6px;
+    display: block;
+
+    .title {
+      font-size: 14px;
+    }
+    .channel,
+    .view {
+      font-size: 12px;
+      color: rgb(170, 170, 170);
+    }
+  }
+}

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import SideItem from "../SideItem/SideItem";
 
 // Import Icons
@@ -12,8 +13,17 @@ import channelIconFill from "@/assets/your-channel-fill.svg";
 import likeIconFill from "@/assets/like-fill.svg";
 import "./Sidebar.scss";
 
-function Sidebar() {
-  const [activeItem, setActiveItem] = useState("home");
+function Sidebar({ sidebar }) {
+  const location = useLocation();
+  const [activeItem, setActiveItem] = useState(null);
+
+  useEffect(() => {
+    if (location.pathname === "/") {
+      setActiveItem("home");
+    } else {
+      setActiveItem(null);
+    }
+  }, []);
 
   const sideSub = {
     "9arm": "#!",
@@ -28,9 +38,10 @@ function Sidebar() {
   };
 
   return (
-    <div className="sidebar">
+    <div className={`sidebar${sidebar ? "" : " small-sidebar"}`}>
       <div className="main-menu">
         <SideItem
+          link={"/"}
           active={activeItem === "home"}
           icon={homeIcon}
           iconFill={homeIconFill}
@@ -38,6 +49,7 @@ function Sidebar() {
           onClick={() => handleItemClick("home")}
         />
         <SideItem
+          link={"_blank"}
           active={activeItem === "subs"}
           icon={subIcon}
           iconFill={subIconFill}
@@ -49,6 +61,7 @@ function Sidebar() {
       <div className="you-menu">
         <h3 className="header">You</h3>
         <SideItem
+          link={"_blank"}
           active={activeItem === "channel"}
           icon={channelIcon}
           iconFill={channelIconFill}
@@ -56,6 +69,7 @@ function Sidebar() {
           onClick={() => handleItemClick("channel")}
         />
         <SideItem
+          link={"_blank"}
           active={activeItem === "like"}
           icon={likeIcon}
           iconFill={likeIconFill}

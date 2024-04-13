@@ -17,7 +17,7 @@ function SignIn() {
     formData.set("password", passInput.current.value);
 
     try {
-      const response = await axios.post("/api/users/login", Object.fromEntries(formData));
+      const response = await axios.post("/api/users/signin", Object.fromEntries(formData));
       const { message, user } = response.data;
       if (user) {
         navigate("/", { replace: true });

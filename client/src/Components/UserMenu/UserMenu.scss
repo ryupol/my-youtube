@@ -22,12 +22,17 @@
   .user-image {
     @include m.flex();
     @include m.icon-button(34px);
+    overflow: hidden;
+    img {
+      width: 40px;
+    }
     &:active {
       outline: 1px solid rgb(62, 166, 255);
     }
   }
   .header-box {
     @include m.grid($item: top, $columns: 54px 230px);
+    @include m.profile();
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     padding: 16px;
     .user-info {
@@ -46,9 +51,6 @@
     button {
       @include m.primary-button();
     }
-  }
-  img {
-    width: 40px;
   }
 }
 

@@ -5,11 +5,15 @@ import youtubeLogo from "@/assets/logo.svg";
 import menuIcon from "@/assets/hamburger.svg";
 import "./Navbar.scss";
 
-function Navbar() {
+function Navbar({ sidebar, setSidebar }) {
+  const handleMenuClick = () => {
+    setSidebar(!sidebar);
+  };
+
   return (
     <nav className="navbar">
       <div className="start">
-        <button className="menu">
+        <button className="menu" onClick={handleMenuClick}>
           <img src={menuIcon} alt="Menu" />
         </button>
         <a href="/" className="logo">

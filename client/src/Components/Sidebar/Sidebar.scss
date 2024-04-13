@@ -3,21 +3,42 @@
 .sidebar {
   margin-top: 56px;
   padding: 12px;
-  width: 240px;
   box-sizing: border-box;
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
-  overflow-y: auto;
-  background-color: inherit;
+  background-color: #0f0f0f;
   z-index: 10;
+  width: 240px;
+  overflow-y: auto;
   .header {
-    padding: 0 12px;
+    font-size: 16px;
   }
   .main-menu,
   .you-menu {
     padding-bottom: 12px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  &:hover {
+    scrollbar-color: #888 transparent;
+    transition: scrollbar-color 0.3s;
+  }
+}
+
+.small-sidebar {
+  width: 72px;
+  padding: 5px;
+
+  .main-menu,
+  .you-menu {
+    padding: 0;
+    border: none;
+  }
+  .header,
+  .sub-menu {
+    display: none;
   }
 }

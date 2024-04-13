@@ -1,0 +1,12 @@
+@use "@/mixin.scss" as m;
+
+.detail-box {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  margin: 12px 0;
+  padding: 12px;
+  line-height: 1.5;
+  .views, .date {
+    font-weight: 600;
+  }
+}

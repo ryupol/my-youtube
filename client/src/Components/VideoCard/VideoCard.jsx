@@ -13,11 +13,11 @@ function VideoCard({ video }) {
   };
 
   return (
-    <a href="/" className="card">
+    <a href={`/watch?v=${video._id}`} className="card">
       <div className="thumbnail">
         <img src={video.thumbnail_url} alt="Video Thumbnail" />
       </div>
-      <section className="about">
+      <div className="about">
         <div className="profile" onClick={handleToChannel}>
           <img src={video.user_profile_url} alt="Profile Picture" />
         </div>
@@ -30,7 +30,7 @@ function VideoCard({ video }) {
             {formatViews(video.views)} • {formatDate(video.created_at)}
           </p>
         </div>
-      </section>
+      </div>
     </a>
   );
 }

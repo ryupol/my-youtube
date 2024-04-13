@@ -1,0 +1,37 @@
+@use "@/mixin.scss" as m;
+
+.watch-content {
+  .title {
+    font-size: 20px;
+  }
+  .sub-button {
+    @include m.primary-button();
+  }
+  padding: 24px;
+  max-width: 1200px;
+  width: 100%;
+  .thumbnail {
+    @include m.flex();
+    aspect-ratio: 16/9;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+    h1 {
+      font-size: 26px;
+      box-shadow: 5px 5px 0px 0px black;
+      padding: 0;
+      margin: 0;
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.6);
+      @include m.flex($justify: center);
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+    img {
+      width: 100%;
+    }
+  }
+}

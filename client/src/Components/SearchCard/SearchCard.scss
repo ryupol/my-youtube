@@ -1,0 +1,52 @@
+@use "@/mixin.scss" as m;
+
+.search-card {
+  @include m.flex($justify: flex-start, $item: flex-start);
+  padding: 8px 4px;
+  border-radius: 4px;
+  gap: 16px;
+  &:active {
+    // outline: 1px solid rgb(241, 241, 241);
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: outline 1s background-color 0.1s ease-in;
+  }
+}
+
+.search-card .thumbnail {
+  @include m.flex();
+  aspect-ratio: 16/9;
+  border-radius: 12px;
+  max-width: 500px;
+  overflow: hidden;
+  img {
+    width: 100%;
+  }
+}
+
+.search-card .video-info {
+  min-width: 50%;
+  @include m.profile(24px);
+  .title {
+    @include m.twoLine();
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 6px;
+    color: rgb(241, 241, 241);
+  }
+  .owner-box {
+    @include m.flex($justify: flex-start);
+    margin: 12px 0;
+    .owner-name:hover {
+      color: rgb(241, 241, 241);
+    }
+  }
+}
+
+.search-card {
+  .views,
+  .owner-name,
+  .description {
+    color: rgb(170, 170, 170);
+    font-size: 12px;
+  }
+}

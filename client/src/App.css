@@ -6,8 +6,9 @@
 }
 :root {
   color-scheme: light dark;
-  color: #ffffff;
+  color: rgb(241, 241, 241);
   background-color: #0f0f0f;
+  scrollbar-color: #888 rgba(0, 0, 0, 0);
 }
 
 body,
@@ -24,23 +25,6 @@ a {
 
 img {
   pointer-events: none;
-}
-
-main {
-  background-color: #0f0f0f;
-  width: 100vw;
-  height: 100vh;
-  display: grid;
-  grid-template: "n n" 56px "s c" / 240px;
-}
-.navbar-container {
-  grid-area: n;
-}
-.sidebar-container {
-  grid-area: s;
-}
-.content {
-  grid-area: c;
 }
 
 /* @media (prefers-color-scheme: light) {

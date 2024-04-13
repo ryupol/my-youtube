@@ -1,0 +1,52 @@
+@use "@/mixin.scss" as m;
+
+.owner-container {
+  @include m.flex();
+  .owner-box {
+    @include m.flex($justify: start);
+    @include m.profile();
+    .text-box {
+      margin-right: 24px;
+      line-height: 1.4;
+      .owner {
+        font-size: 16px;
+        font-weight: 500;
+      }
+      .subscriber {
+        font-size: 12px;
+        color: rgb(170, 170, 170);
+      }
+    }
+  }
+  .rating-box {
+    @include m.flex();
+    flex-wrap: nowrap;
+    .like-button {
+      @include m.secondary-button();
+      @include m.flex();
+      gap: 6px;
+      flex-wrap: nowrap;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      position: relative;
+
+      &:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: 0;
+        height: 70%;
+        border-right: 2px solid rgba(255, 255, 255, 0.2);
+        transform: translateY(-50%);
+      }
+    }
+    .dislike-button {
+      @include m.secondary-button();
+      @include m.flex();
+      gap: 6px;
+      flex-wrap: nowrap;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+}

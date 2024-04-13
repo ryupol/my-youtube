@@ -2,12 +2,13 @@
 
 .navbar {
   @include m.flex();
-  background-color: inherit;
+  background-color: #0f0f0f;
   height: 56px;
   box-sizing: border-box;
   padding: 0 16px;
   width: 100%;
   position: fixed;
+  top: 0;
   z-index: 10;
 }
 

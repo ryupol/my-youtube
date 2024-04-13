@@ -71,14 +71,31 @@
   .tooltip {
     opacity: 0;
     border-radius: 4px;
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgb(111, 111, 111);
     padding: 8px;
     font-size: 12px;
     margin-top: 16px;
     left: 50%;
     transform: translate(-50%);
     position: absolute;
-    z-index: 11;
+    z-index: -1;
     cursor: default;
+    transition: opacity 0.2s;
+  }
+}
+
+@mixin profile($width: 40px) {
+  .profile {
+    @if $width >= 140 {
+      width: $width + 24px;
+    } @else if $width >= 32 {
+      width: $width + 12px;
+    } @else {
+      width: $width + 6px;
+    }
+    img {
+      border-radius: 50%;
+      width: $width;
+    }
   }
 }

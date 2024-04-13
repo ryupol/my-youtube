@@ -1,0 +1,7 @@
+@use "@/mixin.scss" as m;
+
+.watch {
+  @include m.flex($item: flex-start);
+  max-width: 1280px;
+  margin: 0 auto;
+}
