@@ -20,7 +20,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="/upload" element={<Upload />} />
-          <Route path="/channel" element={<Channel />} />
+          <Route path="/:username" element={<Channel />} />
           <Route path="/result" element={<Result />} />
           <Route path="/watch" element={<Watch />} />
         </Route>

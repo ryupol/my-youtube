@@ -36,7 +36,7 @@ function Upload() {
         <p>Title</p>
         <input name="title" type="text" ref={titleInput} />
         <p>Upload</p>
-        <input name="image" type="file" ref={imagInput} />
+        <input type="file" name="thumbnailImage" ref={imagInput} />
         <p>description</p>
         <textarea name="description" ref={descInput} />
         <br />

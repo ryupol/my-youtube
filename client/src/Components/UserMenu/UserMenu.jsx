@@ -75,7 +75,7 @@ function UserMenu() {
                 </div>
                 <div className="user-info">
                   <p>{user.name}</p>
-                  <p>{`@${user.username}`}</p>
+                  <p>{user.username}</p>
                   <a href="/channel" className="view-channel">
                     View your channel
                   </a>

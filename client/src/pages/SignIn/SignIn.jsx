@@ -40,7 +40,7 @@ function SignIn() {
         <br />
         {signError && <p style={{ color: "red" }}>{signError}</p>}
         <div className="button-container">
-          <a href="/sign-up">Register</a>
+          <a href="/register">Register</a>
           <button type="submit">Sign In</button>
         </div>
       </form>

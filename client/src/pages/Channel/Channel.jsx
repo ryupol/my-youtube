@@ -1,6 +1,33 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+
+import VideoCard from "@/Components/VideoCard/VideoCard";
+import formatSubscriber from "@/util/formatSubscriber";
 import "./Channel.scss";
 
 function Channel() {
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const { username } = useParams();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get(`/api/users?username=${username}`);
+        setUser(response.data[0]);
+        console.log(response.data[0]);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+      }
+    };
+    fetchUser();
+  }, []);
+
+  if (loading) return "loading...";
+
   return (
     <div className="channel">
       <div className="banner">
@@ -11,13 +38,16 @@ function Channel() {
       </div>
       <header className="user-header">
         <div className="profile">
-          <img src="http://localhost:3000/images/defaultProfile.png" alt="Profile" />
+          <img src="http://localhost:3000/images/profile/defaultProfile.png" alt="Profile" />
         </div>
         <div className="info">
           <div className="text-box">
-            <h1 className="name">HEARTROCKER</h1>
-            <p className="user-info">@HEARTROCK ‧ 8.8M subscribers ‧ 1 video</p>
-            <p className="description">Descriptions</p>
+            <h1 className="name">{user.name}</h1>
+            <p className="user-info">
+              {user.username} ‧ {formatSubscriber(user.subscriber)} ‧ {user.videos.length}{" "}
+              {user.videos.length > 1 ? "videos" : "video"}
+            </p>
+            <p className="description">Description</p>
           </div>
           <div className="button-box">
             <button className="unsub">Subscribe</button>
@@ -27,20 +57,9 @@ function Channel() {
       </header>
       <hr />
       <section className="container">
-        <a href="/channel" className="card">
-          <div className="thumbnail">
-            <img
-              src="	https://i.ytimg.com/vi/Ww73SFXYwEs/hqdefault.jpg?s…AFwAcABBg==&rs=AOn4CLCNWMuF2K2_JvoWdIWneih0z1loUA"
-              alt="Video Thumbnail"
-            />
-          </div>
-          <p className="title">
-            มาเล่นกัน Detriot Become Human กันเถอะ เย่ เย่ อิอิอิอิ Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Rem mollitia nesciunt ut non molestiae dolor sunt perferendis similique temporibus quas, nisi cumque
-            dolorum voluptas esse animi laborum qui et cupiditate.
-          </p>
-          <p className="view">การดู 1 ครั้ง • 2 days ago</p>
-        </a>
+        {user.videos.map((video, index) => {
+          <VideoCard video={video} key={index} />;
+        })}
       </section>
     </div>
   );

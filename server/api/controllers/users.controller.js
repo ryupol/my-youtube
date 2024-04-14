@@ -1,8 +1,33 @@
 import Users from "../../data/models/users.js";
 
 const getAllUsers = async (req, res) => {
+  let { username } = req.query;
   try {
-    const users = await Users.find();
+    const pipeline = [
+      {
+        $lookup: {
+          from: "videos",
+          localField: "_id",
+          foreignField: "user_id",
+          as: "videos",
+        },
+      },
+      {
+        $lookup: {
+          from: "popularities",
+          localField: "videos._id",
+          foreignField: "video_id",
+          as: "popular",
+        },
+      },
+      {
+        $match: {
+          ...(username ? { username: { $eq: username } } : {}),
+        },
+      },
+    ];
+
+    const users = await Users.aggregate(pipeline);
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -28,7 +53,7 @@ const createUser = async (req, res) => {
 
     const newUser = await Users.create({
       name: username.charAt(0).toUpperCase() + username.slice(1),
-      username,
+      username: "@" + username,
       password,
     });
 

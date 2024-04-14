@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import formatDate from "@/util/formatDate";
-import formatViews from "@/util/formatAmount";
+import formatViews from "@/util/formatViews";
 
 import "./VideoCard.scss";
 
@@ -9,7 +9,7 @@ function VideoCard({ video }) {
 
   const handleToChannel = (e) => {
     e.preventDefault();
-    navigate("/channel");
+    navigate(`/${video.user.username}`);
   };
 
   return (
@@ -19,15 +19,15 @@ function VideoCard({ video }) {
       </div>
       <div className="about">
         <div className="profile" onClick={handleToChannel}>
-          <img src={video.user_profile_url} alt="Profile Picture" />
+          <img src={video.user.profile_url} alt="Profile Picture" />
         </div>
         <div className="text-box">
           <p className="title">{video.title}</p>
           <span className="channel" onClick={handleToChannel}>
-            {video.user_name}
+            {video.user.name}
           </span>
           <p className="view">
-            {formatViews(video.views)} • {formatDate(video.created_at)}
+            {formatViews(video.popular.views)} • {formatDate(video.created_at)}
           </p>
         </div>
       </div>
