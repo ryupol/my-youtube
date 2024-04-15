@@ -17,6 +17,12 @@
         color: rgb(170, 170, 170);
       }
     }
+    .sub-button {
+      @include m.primary-button();
+    }
+    .sub-button-active {
+      @include m.secondary-button();
+    }
   }
   .rating-box {
     @include m.flex();

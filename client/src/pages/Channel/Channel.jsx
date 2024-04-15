@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-import VideoCard from "@/Components/VideoCard/VideoCard";
 import formatSubscriber from "@/util/formatSubscriber";
+import formatViews from "@/util/formatViews";
+import formatDate from "@/util/formatDate";
 import "./Channel.scss";
 
 function Channel() {
@@ -14,9 +15,8 @@ function Channel() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`/api/users?username=${username}`);
+        const response = await axios.get(`/api/users/${username}`);
         setUser(response.data[0]);
-        console.log(response.data[0]);
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -38,7 +38,7 @@ function Channel() {
       </div>
       <header className="user-header">
         <div className="profile">
-          <img src="http://localhost:3000/images/profile/defaultProfile.png" alt="Profile" />
+          <img src={user.profile_url} alt="Profile" />
         </div>
         <div className="info">
           <div className="text-box">
@@ -57,9 +57,21 @@ function Channel() {
       </header>
       <hr />
       <section className="container">
-        {user.videos.map((video, index) => {
-          <VideoCard video={video} key={index} />;
-        })}
+        {user.videos.map((video, index) => (
+          <a href={`/watch?v=${video._id}`} className="channel-card" key={index}>
+            <div className="thumbnail">
+              <img src={video.thumbnail_url} alt="Video Thumbnail" />
+            </div>
+            <div className="about">
+              <div className="text-box">
+                <p className="title">{video.title}</p>
+                <p className="view">
+                  {formatViews(video.views)} • {formatDate(video.created_at)}
+                </p>
+              </div>
+            </div>
+          </a>
+        ))}
       </section>
     </div>
   );

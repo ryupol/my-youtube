@@ -1,4 +1,5 @@
-import Comments from "../../data/models/comments.js";
+import mongoose from "mongoose";
+import Comments from "../../models/comments.js";
 
 const getAllComments = async (req, res) => {
   try {
@@ -10,13 +11,11 @@ const getAllComments = async (req, res) => {
 };
 
 const createComment = async (req, res) => {
-  const user_id = req.session.user.id;
-  const video_id = req.params.video_id;
-  const { text } = req.body;
+  const { text, video_id } = req.body;
   try {
     const newComment = await Comments.create({
       video_id,
-      user_id,
+      user_id: req.session.user.id,
       text,
     });
     res.status(201).json({ comment: newComment });
@@ -31,8 +30,8 @@ const updateComment = async (req, res) => {
   const { text } = req.body;
   try {
     const update = {
-      updated_at: new Date(),
       text,
+      updated_at: new Date(),
     };
 
     const updateComment = await Comments.updateOne({ video_id, user_id }, { update });
@@ -42,22 +41,30 @@ const updateComment = async (req, res) => {
   }
 };
 
-const getCommentByUserID = async (req, res) => {
-  const userSession = req.session.user;
+const getCommentByVideoID = async (req, res) => {
   try {
-    if (!userSession) {
-      return res.status(401).json({ message: "User not authenticated" });
-    }
-    const user = await Comments.findById(userSession.id);
-
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    res.status(200).json(user);
+    const video_id = mongoose.Types.ObjectId.createFromHexString(req.params.id);
+    const pipeline = [
+      {
+        $lookup: {
+          from: "users",
+          localField: "user_id",
+          foreignField: "_id",
+          as: "user",
+        },
+      },
+      {
+        $match: {
+          video_id,
+        },
+      },
+      { $unwind: "$user" },
+    ];
+    const comment = await Comments.aggregate(pipeline);
+    res.status(200).json(comment);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-export { getAllComments, createComment, updateComment, getCommentByUserID };
+export { getAllComments, createComment, updateComment, getCommentByVideoID };

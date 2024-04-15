@@ -21,8 +21,7 @@ function Upload() {
     const config = { headers: { "Content-Type": "multipart/form-data" } };
     formData = Object.fromEntries(formData);
     try {
-      const response = await axios.post("/api/videos", formData, config);
-      const video = response.data;
+      await axios.post("/api/videos", formData, config);
       navigate("/", { replace: true });
     } catch (error) {
       console.log(error);
@@ -36,7 +35,7 @@ function Upload() {
         <p>Title</p>
         <input name="title" type="text" ref={titleInput} />
         <p>Upload</p>
-        <input type="file" name="thumbnailImage" ref={imagInput} />
+        <input type="file" name="image" ref={imagInput} />
         <p>description</p>
         <textarea name="description" ref={descInput} />
         <br />

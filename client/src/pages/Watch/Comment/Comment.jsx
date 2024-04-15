@@ -1,47 +1,58 @@
+import { useRef } from "react";
+import { useSelector } from "react-redux";
+
+import formatDate from "@/util/formatDate";
 import "./Comment.scss";
 
-function Comment() {
+function Comment({ comments, commentSubmit }) {
+  const commentInput = useRef();
+  const { user } = useSelector((state) => state.user);
+
+  const handleCancel = (e) => {
+    e.preventDefault;
+    commentInput.current.value = "";
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const text = commentInput.current.value.trim();
+    if (!text) return;
+
+    commentSubmit(text);
+    commentInput.current.value = "";
+  };
+
   return (
     <div className="comment">
-      <h1 className="count">1,225 Comments</h1>
+      <h1 className="count">
+        {comments.length} {comments.length > 1 ? "Comments" : "Comment"}
+      </h1>
       <div className="my-box">
         <div className="profile">
-          <img src="https://via.placeholder.com/40x40" alt="" />
+          <img src={user.profile_url} alt="User Profile" />
         </div>
-        <form className="my-comment-box">
-          <textarea className="my-comment-input" rows="1" placeholder="Add a comment..." />
-          <button className="cancel-btn">Cancel</button>
+        <form className="my-comment-box" onSubmit={handleSubmit}>
+          <textarea className="my-comment-input" rows="1" placeholder="Add a comment..." ref={commentInput} />
+          <button className="cancel-btn" onClick={handleCancel}>
+            Cancel
+          </button>
           <button className="submit-btn">Submit</button>
         </form>
       </div>
-      <div className="other-box">
-        <div className="profile">
-          <img src="https://via.placeholder.com/40x40" alt="" />
+      {comments.map((comment, index) => (
+        <div className="other-box" key={index}>
+          <div className="profile">
+            <img src={comment.user.profile_url} alt="" />
+          </div>
+          <div className="other-info">
+            <p className="username">
+              {comment.user.username} <span className="date">{formatDate(comment.created_at)}</span>
+            </p>
+            <p className="other-comment">{comment.text}</p>
+          </div>
         </div>
-        <div className="other-info">
-          <p className="username">
-            @nolate1903 <span className="date">2 months ago</span>
-          </p>
-          <p className="other-comment">
-            โห พี่เอ้กเย็นชามาก คนหมดใจรั้งให้ตายก็ไปอยู่ดี น้ำเสียงนิ่งสุดๆ จึ้กมากกกกกกกก อินอ่ะ
-            จากที่เคยเห็นพี่เอกจีบอลิซมาตลอด มันแบบ ฟีลแฟนเก่ามากตอนนี้555566
-          </p>
-        </div>
-      </div>
-      <div className="other-box">
-        <div className="profile">
-          <img src="https://via.placeholder.com/40x40" alt="" />
-        </div>
-        <div className="other-info">
-          <p className="username">
-            @nolate1903 <span className="date">2 months ago</span>
-          </p>
-          <p className="other-comment">
-            โห พี่เอ้กเย็นชามาก คนหมดใจรั้งให้ตายก็ไปอยู่ดี น้ำเสียงนิ่งสุดๆ จึ้กมากกกกกกกก อินอ่ะ
-            จากที่เคยเห็นพี่เอกจีบอลิซมาตลอด มันแบบ ฟีลแฟนเก่ามากตอนนี้555566
-          </p>
-        </div>
-      </div>
+      ))}
     </div>
   );
 }

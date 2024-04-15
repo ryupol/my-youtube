@@ -1,4 +1,7 @@
 function formatViews(num) {
+  let unit = " view";
+  if (num > 1) unit += "s";
+
   if (num < 1000) {
     num = num.toString();
   } else if (num < 1_000_000) {
@@ -8,12 +11,8 @@ function formatViews(num) {
   } else {
     num = `${(num / 1_000_000_000).toFixed(1)}B`;
   }
-  num += " view";
-  if (num > 1) {
-    num += "s";
-  }
 
-  return num;
+  return num + unit;
 }
 
 export default formatViews;

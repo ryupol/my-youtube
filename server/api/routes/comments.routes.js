@@ -3,7 +3,7 @@ import {
   getAllComments,
   createComment,
   updateComment,
-  getCommentByUserID,
+  getCommentByVideoID,
 } from "../controllers/comments.controller.js";
 
 const router = express.Router();
@@ -11,6 +11,6 @@ const router = express.Router();
 router.get("/", getAllComments);
 router.post("/", createComment);
 router.post("/update", updateComment);
-router.get("/:id", getCommentByUserID);
+router.get("/:id", getCommentByVideoID);
 
 export default router;

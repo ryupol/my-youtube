@@ -1,4 +1,7 @@
 function formatSubscriber(num) {
+  let unit = " subscriber";
+  if (num > 1) unit += "s";
+
   if (num < 1000) {
     num = num.toString();
   } else if (num < 1_000_000) {
@@ -8,12 +11,8 @@ function formatSubscriber(num) {
   } else {
     num = `${(num / 1_000_000_000).toFixed(1)}B`;
   }
-  num += " subsriber";
-  if (num > 1) {
-    num += "s";
-  }
 
-  return num;
+  return num + unit;
 }
 
 export default formatSubscriber;

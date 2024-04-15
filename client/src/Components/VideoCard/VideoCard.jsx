@@ -27,7 +27,7 @@ function VideoCard({ video }) {
             {video.user.name}
           </span>
           <p className="view">
-            {formatViews(video.popular.views)} • {formatDate(video.created_at)}
+            {formatViews(video.views)} • {formatDate(video.created_at)}
           </p>
         </div>
       </div>

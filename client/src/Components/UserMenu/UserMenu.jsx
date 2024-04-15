@@ -26,6 +26,7 @@ function UserMenu() {
       } catch (error) {
         console.log(error);
         setLoading(false);
+        navigate("/sign-in");
       }
     };
 
@@ -48,6 +49,7 @@ function UserMenu() {
   const handleLogout = async () => {
     await axios.post("/api/users/signout");
     dispatch(setUser(null));
+    navigate("/sign-in");
   };
 
   if (loading) return "Loading...";

@@ -20,7 +20,7 @@ function SearchCard({ video }) {
         <div className="text-box">
           <p className="title">{video.title}</p>
           <p className="views">
-            {formatViews(video.popular.views)} • {formatDate(video.created_at)}
+            {formatViews(video.views)} • {formatDate(video.created_at)}
           </p>
           <div className="owner-box">
             <div className="profile" onClick={handleToChannel}>

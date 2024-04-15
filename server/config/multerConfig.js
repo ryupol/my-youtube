@@ -21,7 +21,7 @@ const thumbnailStorage = multer.diskStorage({
 });
 
 // Create multer instances for profile and thumbnail uploads
-const uploadProfile = multer({storage: profileStorage}).single('profileImage');
-const uploadThumbnail = multer({storage: thumbnailStorage}).single('thumbnailImage');
+const uploadProfile = multer({storage: profileStorage});
+const uploadThumbnail = multer({storage: thumbnailStorage});
 
 export { uploadProfile, uploadThumbnail };

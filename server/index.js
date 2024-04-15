@@ -3,11 +3,11 @@ import dotenv from "dotenv";
 import cors from "cors";
 import session from "express-session";
 
-import connectDB from "./data/connect.js";
+import connectDB from "./connect.js";
 import userRouter from "./api/routes/users.routes.js";
 import videoRouter from "./api/routes/videos.routes.js";
-import popRouter from "./api/routes/popularity.routes.js";
-import actionRouter from "./api/routes/userActions.routes.js";
+import subscribeRouter from "./api/routes/subscribe.routes.js";
+import ratingRouter from "./api/routes/rating.routes.js";
 import commentRouter from "./api/routes/comments.routes.js";
 
 dotenv.config();
@@ -33,8 +33,8 @@ app.get("/", (req, res) => {
 
 app.use("/api/users", userRouter);
 app.use("/api/videos", videoRouter);
-app.use("/api/popular", popRouter);
-app.use("/api/actions", actionRouter);
+app.use("/api/subscribe", subscribeRouter);
+app.use("/api/rating", ratingRouter);
 app.use("/api/comments", commentRouter);
 app.use("/images/thumbnail", express.static("assets/images/thumbnail"));
 app.use("/images/profile", express.static("assets/images/profile"));

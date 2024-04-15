@@ -1,7 +1,6 @@
-import Users from "../../data/models/users.js";
+import Users from "../../models/users.js";
 
 const getAllUsers = async (req, res) => {
-  let { username } = req.query;
   try {
     const pipeline = [
       {
@@ -12,21 +11,7 @@ const getAllUsers = async (req, res) => {
           as: "videos",
         },
       },
-      {
-        $lookup: {
-          from: "popularities",
-          localField: "videos._id",
-          foreignField: "video_id",
-          as: "popular",
-        },
-      },
-      {
-        $match: {
-          ...(username ? { username: { $eq: username } } : {}),
-        },
-      },
     ];
-
     const users = await Users.aggregate(pipeline);
     res.status(200).json(users);
   } catch (error) {
@@ -65,7 +50,8 @@ const createUser = async (req, res) => {
 };
 
 const signIn = async (req, res) => {
-  const { username, password } = req.body;
+  let { username, password } = req.body;
+  username = "@" + username;
   try {
     const user = await Users.findOne({ username });
     if (!user) {
@@ -119,7 +105,7 @@ const updateUser = async (req, res) => {
   }
 };
 
-const getUserInSession = async (req, res) => {
+const getUserSession = async (req, res) => {
   const userSession = req.session.user;
   try {
     if (!userSession) {
@@ -136,4 +122,36 @@ const getUserInSession = async (req, res) => {
   }
 };
 
-export { getAllUsers, createUser, updateUser, signIn, signOut, getUserInSession };
+const getUserByUsername = async (req, res) => {
+  const username = req.params.username;
+  try {
+    const pipeline = [
+      {
+        $lookup: {
+          from: "videos",
+          localField: "_id",
+          foreignField: "user_id",
+          as: "videos",
+        },
+      },
+      {
+        $match: { username: { $eq: username } },
+      },
+    ];
+
+    const users = await Users.aggregate(pipeline);
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export {
+  getAllUsers,
+  createUser,
+  updateUser,
+  signIn,
+  signOut,
+  getUserSession,
+  getUserByUsername,
+};

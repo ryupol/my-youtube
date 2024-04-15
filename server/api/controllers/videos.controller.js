@@ -1,5 +1,5 @@
-import Videos from "../../data/models/videos.js";
-import Pop from "../../data/models/popularity.js";
+import mongoose from "mongoose";
+import Videos from "../../models/videos.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -18,16 +18,6 @@ const getAllVideos = async (req, res) => {
         },
       },
       {
-        $lookup: {
-          from: "popularities",
-          localField: "_id",
-          foreignField: "video_id",
-          as: "popular",
-        },
-      },
-      { $unwind: "$user" },
-      { $unwind: "$popular" },
-      {
         $match: {
           title: {
             $regex: search_query,
@@ -35,6 +25,7 @@ const getAllVideos = async (req, res) => {
           },
         },
       },
+      { $unwind: "$user" },
     ];
     const videos = await Videos.aggregate(pipeline);
     res.status(200).json(videos);
@@ -52,12 +43,8 @@ const createVideo = async (req, res) => {
       description,
       user_id: req.session.user.id,
     });
-    // Create field in Popularity collection
-    const newPop = await Pop.create({
-      video_id: newVideo._id,
-    });
 
-    res.status(200).json({ newVideo, newPop });
+    res.status(200).json({ newVideo });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ message: error.message });
@@ -66,12 +53,38 @@ const createVideo = async (req, res) => {
 
 const getVideoByID = async (req, res) => {
   try {
-    const videoID = req.params.id;
-    const video = await Videos.findOne({ videoID });
-    res.status(200).json(video);
+    const videoID = mongoose.Types.ObjectId.createFromHexString(req.params.id);
+    const pipeline = [
+      {
+        $lookup: {
+          from: "users",
+          localField: "user_id",
+          foreignField: "_id",
+          as: "user",
+        },
+      },
+      {
+        $match: {
+          _id: videoID,
+        },
+      },
+      { $unwind: "$user" },
+    ];
+    const videos = await Videos.aggregate(pipeline);
+    res.status(200).json(videos[0]);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-export { getAllVideos, createVideo, getVideoByID };
+const addViewByID = async (req, res) => {
+  try {
+    const video_id = req.params.id;
+    const updateView = await Videos.updateOne({ _id: video_id }, { $inc: { views: 1 } });
+    res.status(200).json({ action: updateView });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export { getAllVideos, createVideo, getVideoByID, addViewByID };

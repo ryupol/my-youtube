@@ -1,11 +1,10 @@
 @use "@/mixin.scss" as m;
 
 .watch-content {
+  min-width: 380px;
+  box-sizing: border-box;
   .title {
     font-size: 20px;
-  }
-  .sub-button {
-    @include m.primary-button();
   }
   padding: 24px;
   max-width: 1200px;
@@ -18,7 +17,7 @@
     position: relative;
     height: 100%;
     h1 {
-      font-size: 26px;
+      font-size: 24px;
       box-shadow: 5px 5px 0px 0px black;
       padding: 0;
       margin: 0;
