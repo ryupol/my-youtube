@@ -26,6 +26,7 @@ const getAllVideos = async (req, res) => {
         },
       },
       { $unwind: "$user" },
+      { $project: { "user.password": 0 } },
     ];
     const videos = await Videos.aggregate(pipeline);
     res.status(200).json(videos);
@@ -69,6 +70,7 @@ const getVideoByID = async (req, res) => {
         },
       },
       { $unwind: "$user" },
+      { $project: { "user.password": 0 } },
     ];
     const videos = await Videos.aggregate(pipeline);
     res.status(200).json(videos[0]);

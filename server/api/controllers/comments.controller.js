@@ -11,7 +11,8 @@ const getAllComments = async (req, res) => {
 };
 
 const createComment = async (req, res) => {
-  const { text, video_id } = req.body;
+  const video_id = mongoose.Types.ObjectId.createFromHexString(req.params.id);
+  const { text } = req.body;
   try {
     const newComment = await Comments.create({
       video_id,
@@ -41,6 +42,8 @@ const updateComment = async (req, res) => {
   }
 };
 
+const deleteComment = async (req, res) => {};
+
 const getCommentByVideoID = async (req, res) => {
   try {
     const video_id = mongoose.Types.ObjectId.createFromHexString(req.params.id);
@@ -53,11 +56,7 @@ const getCommentByVideoID = async (req, res) => {
           as: "user",
         },
       },
-      {
-        $match: {
-          video_id,
-        },
-      },
+      { $match: { video_id } },
       { $unwind: "$user" },
     ];
     const comment = await Comments.aggregate(pipeline);
@@ -67,4 +66,4 @@ const getCommentByVideoID = async (req, res) => {
   }
 };
 
-export { getAllComments, createComment, updateComment, getCommentByVideoID };
+export { getAllComments, createComment, updateComment, deleteComment, getCommentByVideoID };

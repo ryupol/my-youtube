@@ -45,8 +45,21 @@ const deleteSub = async (req, res) => {
 
 const getAllSubBySession = async (req, res) => {
   try {
-    const user_id = req.session.user.id;
-    const sub = await Subscribe.findById({ user_id });
+    const userId = mongoose.Types.ObjectId.createFromHexString(req.session.user.id);
+    const pipeline = [
+      {
+        $lookup: {
+          from: "users",
+          localField: "sub_to_user_id",
+          foreignField: "_id",
+          as: "user",
+        },
+      },
+      { $unwind: "$user" },
+      { $match: { user_id: userId } },
+      { $project: { "user.password": 0 } },
+    ];
+    const sub = await Subscribe.aggregate(pipeline);
     res.status(200).json(sub);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -55,8 +68,9 @@ const getAllSubBySession = async (req, res) => {
 
 const getSubByID = async (req, res) => {
   try {
-    const user_id = mongoose.Types.ObjectId.createFromHexString(req.params.id);
-    const sub = await Subscribe.findOne({ sub_to_user_id: user_id });
+    const user_id = req.session.user.id;
+    const sub_to_user_id = mongoose.Types.ObjectId.createFromHexString(req.params.id);
+    const sub = await Subscribe.findOne({ user_id, sub_to_user_id });
     res.status(200).json(sub);
   } catch (error) {
     res.status(500).json({ message: error.message });

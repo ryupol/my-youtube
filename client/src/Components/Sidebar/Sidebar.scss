@@ -20,6 +20,10 @@
     padding-bottom: 12px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   }
+  .sub-menu img {
+    max-width: 24px;
+  }
+
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
   &:hover {

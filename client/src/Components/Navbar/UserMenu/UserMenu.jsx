@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../../store/Slicer/UserSlice";
+import { setUser } from "@/store/Slicer/UserSlice";
 import axios from "axios";
 
 import createIcon from "@/assets/create.svg";

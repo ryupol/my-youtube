@@ -1,5 +1,5 @@
-import Videos from "../../models/videos.js";
 import Rating from "../../models/rating.js";
+import Videos from "../../models/videos.js";
 
 const getAllRating = async (req, res) => {
   try {

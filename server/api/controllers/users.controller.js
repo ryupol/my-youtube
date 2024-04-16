@@ -11,6 +11,7 @@ const getAllUsers = async (req, res) => {
           as: "videos",
         },
       },
+      { $project: { password: 0 } },
     ];
     const users = await Users.aggregate(pipeline);
     res.status(200).json(users);
@@ -137,6 +138,7 @@ const getUserByUsername = async (req, res) => {
       {
         $match: { username: { $eq: username } },
       },
+      { $project: { password: 0 } },
     ];
 
     const users = await Users.aggregate(pipeline);
@@ -146,12 +148,4 @@ const getUserByUsername = async (req, res) => {
   }
 };
 
-export {
-  getAllUsers,
-  createUser,
-  updateUser,
-  signIn,
-  signOut,
-  getUserSession,
-  getUserByUsername,
-};
+export { getAllUsers, createUser, updateUser, signIn, signOut, getUserSession, getUserByUsername };

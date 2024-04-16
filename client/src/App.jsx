@@ -19,13 +19,15 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="/upload" element={<Upload />} />
           <Route path="/:username" element={<Channel />} />
+          <Route path="/channel/:username" element={<Channel />} />
+          <Route path="/upload" element={<Upload />} />
           <Route path="/result" element={<Result />} />
           <Route path="/watch" element={<Watch />} />
         </Route>
         <Route path="/register" element={<Register />} />
         <Route path="/sign-in" element={<SignIn />} />
+        <Route path="*" element={<h1>404 Page not found</h1>} />
       </Routes>
     </Provider>
   );

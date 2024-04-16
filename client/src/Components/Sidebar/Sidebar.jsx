@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import SideItem from "../SideItem/SideItem";
+import { useLocation, useParams } from "react-router-dom";
+import axios from "axios";
 
+import SideItem from "./SideItem/SideItem";
 // Import Icons
 import homeIcon from "@/assets/home.svg";
 import subIcon from "@/assets/subscriptions.svg";
@@ -14,46 +15,61 @@ import likeIconFill from "@/assets/like-fill.svg";
 import "./Sidebar.scss";
 
 function Sidebar({ sidebar }) {
-  const location = useLocation();
   const [activeItem, setActiveItem] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [subList, setSubList] = useState(false);
+  const [user, setUser] = useState(false);
+  const location = useLocation();
+  const { username } = useParams();
 
   useEffect(() => {
+    const fetchSubList = async () => {
+      try {
+        const [subResponse, userResponse] = await Promise.all([
+          axios.get("/api/subscribe/session"),
+          axios.get("/api/users/session"),
+        ]);
+        setSubList(subResponse.data);
+        setUser(userResponse.data);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+        navigate("/sign-in");
+      }
+    };
+
     if (location.pathname === "/") {
       setActiveItem("home");
     } else {
-      setActiveItem(null);
+      setActiveItem(username);
     }
+    fetchSubList();
   }, []);
-
-  const sideSub = {
-    "9arm": "#!",
-    HEARTROCKER: "#!",
-    "KND Studio": "#!",
-    "NAT VS FOOD": "#!",
-    NeetCodeIO: "#!",
-  };
 
   const handleItemClick = (itemName) => {
     setActiveItem(itemName);
   };
 
+  if (loading) return "loading...";
+
   return (
     <div className={`sidebar${sidebar ? "" : " small-sidebar"}`}>
       <div className="main-menu">
         <SideItem
+          text="Home"
           link={"/"}
           active={activeItem === "home"}
           icon={homeIcon}
           iconFill={homeIconFill}
-          text="Home"
           onClick={() => handleItemClick("home")}
         />
         <SideItem
-          link={"_blank"}
+          text="Subscriptions"
+          link={"/"}
           active={activeItem === "subs"}
           icon={subIcon}
           iconFill={subIconFill}
-          text="Subscriptions"
           onClick={() => handleItemClick("subs")}
         />
       </div>
@@ -61,32 +77,35 @@ function Sidebar({ sidebar }) {
       <div className="you-menu">
         <h3 className="header">You</h3>
         <SideItem
-          link={"_blank"}
+          text="Your channel"
+          link={`/channel/${user.username}`}
           active={activeItem === "channel"}
           icon={channelIcon}
           iconFill={channelIconFill}
-          text="Your channel"
-          onClick={() => handleItemClick("channel")}
+          onClick={() => handleItemClick(user.username)}
         />
         <SideItem
+          text="Liked Videos"
           link={"_blank"}
           active={activeItem === "like"}
           icon={likeIcon}
           iconFill={likeIconFill}
-          text="Liked Videos"
           onClick={() => handleItemClick("like")}
         />
       </div>
 
       <div className="sub-menu">
         <h3 className="header">Subscriptions</h3>
-        {Object.entries(sideSub).map(([title, link]) => (
-          <a href={link} className="item" key={title}>
-            <div className="icon">
-              <img src="https://via.placeholder.com/24x24" alt="Channel Image" />
-            </div>
-            <p>{title}</p>
-          </a>
+        {subList.map((data) => (
+          <SideItem
+            text={data.user.name}
+            link={`/${data.user.username}`}
+            active={activeItem === data.user.username}
+            icon={data.user.profile_url}
+            iconFill={data.user.profile_url}
+            onClick={() => handleItemClick(data.user.username)}
+            key={data.user.username}
+          />
         ))}
       </div>
     </div>

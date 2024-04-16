@@ -1,0 +1,33 @@
+@use "@/mixin.scss" as m;
+
+.rating-button {
+  @include m.flex();
+  flex-wrap: nowrap;
+  .like-button {
+    @include m.secondary-button();
+    @include m.flex();
+    gap: 6px;
+    flex-wrap: nowrap;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    position: relative;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 0;
+      height: 70%;
+      border-right: 2px solid rgba(255, 255, 255, 0.2);
+      transform: translateY(-50%);
+    }
+  }
+  .dislike-button {
+    @include m.secondary-button();
+    @include m.flex();
+    gap: 6px;
+    flex-wrap: nowrap;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}

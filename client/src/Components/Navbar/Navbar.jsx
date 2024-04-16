@@ -1,5 +1,5 @@
-import SearchInput from "../SearchInput/SearchInput";
-import UserMenu from "../UserMenu/UserMenu";
+import SearchInput from "./SearchInput/SearchInput";
+import UserMenu from "./UserMenu/UserMenu";
 
 import youtubeLogo from "@/assets/logo.svg";
 import menuIcon from "@/assets/hamburger.svg";
