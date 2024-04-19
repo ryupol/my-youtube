@@ -29,7 +29,7 @@ function SignIn() {
   };
 
   return (
-    <div className="signin-container">
+    <div className="signin">
       <form onSubmit={handleSubmit}>
         <h2 className="title">Sign In</h2>
         <p>Username</p>

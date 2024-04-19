@@ -1,40 +1,44 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
-import formatSubscriber from "@/util/formatSubscriber";
-import formatViews from "@/util/formatViews";
-import formatDate from "@/util/formatDate";
+import SubscribeButton from "@/components/SubscribeButton/SubscribeButton";
+
+import formatSubscriber from "@/utils/formatSubscriber";
+import formatViews from "@/utils/formatViews";
+import formatDate from "@/utils/formatDate";
+import banner from "@/assets/banner.jpg";
 import "./Channel.scss";
 
 function Channel() {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const { username } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const videoAmount = user ? user.videos.length : 0
+
+  const fetchUser = async () => {
+    try {
+      const response = await axios.post(`/api/users/${username}`);
+      setUser(response.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await axios.get(`/api/users/${username}`);
-        setUser(response.data[0]);
-        setLoading(false);
-      } catch (error) {
-        console.log(error);
-        setLoading(false);
-      }
-    };
     fetchUser();
   }, []);
 
-  if (loading) return "loading...";
+  if (!user || loading) return "loading...";
 
   return (
     <div className="channel">
       <div className="banner">
-        <img
-          src="https://yt3.googleusercontent.com/4hsLXfPp78kGbpbrGBu9fojBGZrgqPhfrO1LgIRIugQAa3zyjb5nYJZtAPDqzhJbuPpPAXzUQQ=w1707-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj"
-          alt="Banner Image"
-        />
+        <img src={banner} alt="Banner Image" />
       </div>
       <header className="user-header">
         <div className="profile">
@@ -44,21 +48,28 @@ function Channel() {
           <div className="text-box">
             <h1 className="name">{user.name}</h1>
             <p className="user-info">
-              {user.username} ‧ {formatSubscriber(user.subscriber)} ‧ {user.videos.length}{" "}
-              {user.videos.length > 1 ? "videos" : "video"}
+              {user.username} ‧ {formatSubscriber(user.subscriber)} ‧{" "}
+              {videoAmount} {videoAmount > 1 ? "videos" : "video"}
             </p>
             <p className="description">Description</p>
           </div>
-          <div className="button-box">
-            <button className="unsub">Subscribe</button>
-            <button className="sub">Subscribed</button>
-          </div>
+          {location.pathname.includes("/channel") ? (
+            <button className="sub-button-active" onClick={() => navigate("/customize")}>
+              Customize Channel
+            </button>
+          ) : (
+            <SubscribeButton fetchData={fetchUser} />
+          )}
         </div>
       </header>
       <hr />
       <section className="container">
         {user.videos.map((video, index) => (
-          <a href={`/watch?v=${video._id}`} className="channel-card" key={index}>
+          <a
+            href={`/watch?v=${video._id}`}
+            className="channel-card"
+            key={index}
+          >
             <div className="thumbnail">
               <img src={video.thumbnail_url} alt="Video Thumbnail" />
             </div>

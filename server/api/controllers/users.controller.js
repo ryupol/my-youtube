@@ -1,19 +1,22 @@
 import Users from "../../models/users.js";
+import dotenv from "dotenv";
+dotenv.config();
+const sessionMap = (api) => {
+  return {
+    id: api._id,
+    name: api.name,
+    username: api.username,
+    profile_url: api.profile_url,
+  };
+};
 
+// --------------------------------------------------------
 const getAllUsers = async (req, res) => {
   try {
-    const pipeline = [
-      {
-        $lookup: {
-          from: "videos",
-          localField: "_id",
-          foreignField: "user_id",
-          as: "videos",
-        },
-      },
-      { $project: { password: 0 } },
-    ];
-    const users = await Users.aggregate(pipeline);
+    const users = await Users.find().populate({
+      path: "video_id",
+      select: "thumbnail_url title views created_at",
+    });
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -25,7 +28,9 @@ const createUser = async (req, res) => {
   try {
     const userExists = await Users.exists({ username });
     if (userExists) {
-      return res.status(200).json({ message: "That username is taken. Try another." });
+      return res
+        .status(200)
+        .json({ message: "That username is taken. Try another." });
     }
 
     const usernamePattern = /^[a-zA-Z0-9_-]{3,16}$/;
@@ -42,9 +47,30 @@ const createUser = async (req, res) => {
       username: "@" + username,
       password,
     });
-
-    req.session.user = { id: newUser._id, username };
+    req.session.user = sessionMap(newUser);
     res.status(201).json({ user: newUser });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const updateUser = async (req, res) => {
+  try {
+    const name = req.body.name;
+    const user_id = req.session.user.id;
+    let update = {
+      name: name,
+      updated_at: new Date(),
+    };
+    if (req.file) {
+      const profile_url = process.env.PROFILE_URL + req.file.filename;
+      update["profile_url"] = profile_url;
+    }
+    const updateUser = await Users.findOneAndUpdate({ _id: user_id }, update, {
+      new: true,
+    });
+    req.session.user = sessionMap(updateUser);
+    res.status(200).json({ user: updateUser });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -62,7 +88,7 @@ const signIn = async (req, res) => {
       return res.status(200).json({ message: "Wrong password." });
     }
 
-    req.session.user = { id: user._id, username };
+    req.session.user = sessionMap(user);
     res.status(200).json({ message: "Login successful", user });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -82,45 +108,12 @@ const signOut = async (req, res) => {
   }
 };
 
-const updateUser = async (req, res) => {
-  const user_id = req.session.user.id;
-  const { profile_url, name, newPassword } = req.body;
-  try {
-    let update = {};
-    update["updated_at"] = new Date();
-
-    if (profile_url) {
-      update["profile_url"] = profile_url;
-    }
-    if (name) {
-      update["name"] = name;
-    }
-    if (newPassword) {
-      update["password"] = newPassword;
-    }
-
-    const updateUser = await Users.updateOne({ _id: user_id }, { update });
-    res.status(201).json({ user: updateUser });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
 const getUserSession = async (req, res) => {
   const userSession = req.session.user;
-  try {
-    if (!userSession) {
-      return res.status(401).json({ message: "User not authenticated" });
-    }
-    const user = await Users.findById(userSession.id);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    res.status(200).json(user);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+  if (!userSession) {
+    return res.status(401).json({ message: "User not authenticated" });
   }
+  return res.status(200).json(userSession);
 };
 
 const getUserByUsername = async (req, res) => {
@@ -142,10 +135,18 @@ const getUserByUsername = async (req, res) => {
     ];
 
     const users = await Users.aggregate(pipeline);
-    res.status(200).json(users);
+    res.status(200).json(users[0]);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-export { getAllUsers, createUser, updateUser, signIn, signOut, getUserSession, getUserByUsername };
+export {
+  getAllUsers,
+  createUser,
+  updateUser,
+  signIn,
+  signOut,
+  getUserSession,
+  getUserByUsername,
+};

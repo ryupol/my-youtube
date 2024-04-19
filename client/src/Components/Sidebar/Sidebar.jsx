@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
-import axios from "axios";
+
+import useUserSession from "@/hooks/useUserSession";
+import useUserSubscriptions from "@/hooks/useUserSubscriptions";
 
 import SideItem from "./SideItem/SideItem";
 // Import Icons
@@ -16,40 +18,25 @@ import "./Sidebar.scss";
 
 function Sidebar({ sidebar }) {
   const [activeItem, setActiveItem] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [subList, setSubList] = useState(false);
-  const [user, setUser] = useState(false);
   const location = useLocation();
   const { username } = useParams();
 
-  useEffect(() => {
-    const fetchSubList = async () => {
-      try {
-        const [subResponse, userResponse] = await Promise.all([
-          axios.get("/api/subscribe/session"),
-          axios.get("/api/users/session"),
-        ]);
-        setSubList(subResponse.data);
-        setUser(userResponse.data);
-        setLoading(false);
-      } catch (error) {
-        console.log(error);
-        setLoading(false);
-        navigate("/sign-in");
-      }
-    };
+  const { user } = useUserSession();
+  const { loading, subList } = useUserSubscriptions();
 
+  useEffect(() => {
     if (location.pathname === "/") {
       setActiveItem("home");
+    } else if (location.pathname.includes("/channel")) {
+      setActiveItem("channel");
+    } else if (location.pathname === "/feed/subscriptions") {
+      setActiveItem("subscriptions");
+    } else if (location.pathname === "/feed/likes") {
+      setActiveItem("likes");
     } else {
       setActiveItem(username);
     }
-    fetchSubList();
   }, []);
-
-  const handleItemClick = (itemName) => {
-    setActiveItem(itemName);
-  };
 
   if (loading) return "loading...";
 
@@ -62,15 +49,13 @@ function Sidebar({ sidebar }) {
           active={activeItem === "home"}
           icon={homeIcon}
           iconFill={homeIconFill}
-          onClick={() => handleItemClick("home")}
         />
         <SideItem
           text="Subscriptions"
-          link={"/"}
-          active={activeItem === "subs"}
+          link={"/feed/subscriptions"}
+          active={activeItem === "subscriptions"}
           icon={subIcon}
           iconFill={subIconFill}
-          onClick={() => handleItemClick("subs")}
         />
       </div>
 
@@ -82,15 +67,13 @@ function Sidebar({ sidebar }) {
           active={activeItem === "channel"}
           icon={channelIcon}
           iconFill={channelIconFill}
-          onClick={() => handleItemClick(user.username)}
         />
         <SideItem
           text="Liked Videos"
-          link={"_blank"}
-          active={activeItem === "like"}
+          link={"/feed/likes"}
+          active={activeItem === "likes"}
           icon={likeIcon}
           iconFill={likeIconFill}
-          onClick={() => handleItemClick("like")}
         />
       </div>
 
@@ -98,13 +81,13 @@ function Sidebar({ sidebar }) {
         <h3 className="header">Subscriptions</h3>
         {subList.map((data) => (
           <SideItem
-            text={data.user.name}
-            link={`/${data.user.username}`}
-            active={activeItem === data.user.username}
-            icon={data.user.profile_url}
-            iconFill={data.user.profile_url}
-            onClick={() => handleItemClick(data.user.username)}
-            key={data.user.username}
+            text={data.sub_to_user_id.name}
+            link={`/${data.sub_to_user_id.username}`}
+            active={activeItem === data.sub_to_user_id.username}
+            icon={data.sub_to_user_id.profile_url}
+            iconFill={data.sub_to_user_id.profile_url}
+            roundBorder={true}
+            key={data.sub_to_user_id.username}
           />
         ))}
       </div>

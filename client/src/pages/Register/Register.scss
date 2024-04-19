@@ -1,6 +1,6 @@
 @use "@/mixin.scss" as m;
 
-.register-container {
+.register {
   width: 100%;
   @include m.flex($justify: center, $direction: column);
   height: 100vh;

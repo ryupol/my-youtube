@@ -20,7 +20,7 @@ function Register() {
     formData.append("confirm", confInput.current.value);
 
     try {
-      const response = await axios.post("/api/users", Object.fromEntries(formData));
+      const response = await axios.post("/api/users/create", Object.fromEntries(formData));
       const { message, user } = response.data;
       if (user) {
         navigate("/", { replace: true });
@@ -33,7 +33,7 @@ function Register() {
   };
 
   return (
-    <div className="register-container">
+    <div className="register">
       <form onSubmit={handleSubmit}>
         <h2 className="title">Register</h2>
         <p>Username</p>

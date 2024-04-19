@@ -1,5 +1,5 @@
-import formatViews from "@/util/formatViews";
-import formatDate from "@/util/formatDate";
+import formatViews from "@/utils/formatViews";
+import formatDate from "@/utils/formatDate";
 import "./DetailBox.scss";
 
 function DetailBox({ video }) {

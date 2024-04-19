@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import axios from "axios";
 
-import SearchCard from "../../Components/SearchCard/SearchCard";
+import SearchCard from "@/components/SearchCard/SearchCard";
+import getQueryValue from "@/utils/getQueryValue";
 import "./Result.scss";
 
 function Result() {
-  const location = useLocation();
+  const queryValue = getQueryValue("search_query");
 
   const [loading, setLoading] = useState(true);
   const [searchResult, setSearchResult] = useState(null);
@@ -14,7 +14,7 @@ function Result() {
   useEffect(() => {
     const fetchSearch = async () => {
       try {
-        const response = await axios.get(`/api/videos${location.search}`);
+        const response = await axios.get(`/api/videos/search/${queryValue}`);
         setSearchResult(response.data);
         setLoading(false);
       } catch (error) {

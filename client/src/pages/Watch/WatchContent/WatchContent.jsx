@@ -1,17 +1,14 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import axios from "axios";
 
 import OwnerContainer from "./OwnerContainer/OwnerContainer";
 import DetailBox from "./DetailBox/DetailBox";
-import Comment from "./Comment/Comment";
-
+import Comment from "./Comments/Comments";
+import getQueryValue from "@/utils/getQueryValue"
 import "./WatchContent.scss";
 
 function WatchContent() {
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const videoId = searchParams.get("v");
+  const videoId = getQueryValue("v")
 
   const [loading, setLoading] = useState(true);
   const [video, setVideo] = useState(null);

@@ -1,7 +1,30 @@
 @use "@/mixin.scss" as m;
 
 .home {
-  @include m.grid($columns: 1fr 1fr 1fr, $gap: 16px, $item: top);
-  padding: 0 24px 20px 0;
-  margin: 40px 24px;
+  @include m.grid($gap: 16px, $item: top);
+  padding: 20px 24px;
+}
+
+@media (max-width: 920px) {
+  .home {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media (min-width: 920px) and (max-width: 1250px) {
+  .home {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1250px) and (max-width: 1580px) {
+  .home {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1580px) {
+  .home {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }

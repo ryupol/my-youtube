@@ -1,5 +1,5 @@
 import express from "express";
-
+import { uploadProfile } from "../../config/multerConfig.js";
 import {
   getAllUsers,
   createUser,
@@ -12,12 +12,12 @@ import {
 
 const router = express.Router();
 
-router.get("/", getAllUsers);
-router.post("/", createUser);
-router.post("/update", updateUser);
+router.post("/", getAllUsers);
+router.post("/create", createUser);
+router.post("/update", uploadProfile.single("image"), updateUser);
 router.post("/signin", signIn);
 router.post("/signout", signOut);
 router.get("/session", getUserSession);
-router.get("/:username", getUserByUsername);
+router.post("/:username", getUserByUsername);
 
 export default router;

@@ -4,31 +4,26 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const getAllVideos = async (req, res) => {
-  let { search_query = "" } = req.query;
-  search_query = search_query.trim();
+  try {
+    const videos = await Videos.find().populate({
+      path: "user_id",
+      select: "name username profile_url",
+    });
+    res.status(200).json(videos);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const searchVideos = async (req, res) => {
+  let { search_query = "" } = req.params;
+  search_query = new RegExp(search_query.trim(), "i");
 
   try {
-    const pipeline = [
-      {
-        $lookup: {
-          from: "users",
-          localField: "user_id",
-          foreignField: "_id",
-          as: "user",
-        },
-      },
-      {
-        $match: {
-          title: {
-            $regex: search_query,
-            $options: "i",
-          },
-        },
-      },
-      { $unwind: "$user" },
-      { $project: { "user.password": 0 } },
-    ];
-    const videos = await Videos.aggregate(pipeline);
+    const videos = await Videos.find({ title: search_query }).populate({
+      path: "user_id",
+      select: "name username profile_url",
+    });
     res.status(200).json(videos);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -55,25 +50,11 @@ const createVideo = async (req, res) => {
 const getVideoByID = async (req, res) => {
   try {
     const videoID = mongoose.Types.ObjectId.createFromHexString(req.params.id);
-    const pipeline = [
-      {
-        $lookup: {
-          from: "users",
-          localField: "user_id",
-          foreignField: "_id",
-          as: "user",
-        },
-      },
-      {
-        $match: {
-          _id: videoID,
-        },
-      },
-      { $unwind: "$user" },
-      { $project: { "user.password": 0 } },
-    ];
-    const videos = await Videos.aggregate(pipeline);
-    res.status(200).json(videos[0]);
+    const video = await Videos.findOne({ _id: videoID }).populate({
+      path: "user_id",
+      select: "name username profile_url subscriber",
+    });
+    res.status(200).json(video);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -82,11 +63,14 @@ const getVideoByID = async (req, res) => {
 const addViewByID = async (req, res) => {
   try {
     const video_id = req.params.id;
-    const updateView = await Videos.updateOne({ _id: video_id }, { $inc: { views: 1 } });
+    const updateView = await Videos.updateOne(
+      { _id: video_id },
+      { $inc: { views: 1 } }
+    );
     res.status(200).json({ action: updateView });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-export { getAllVideos, createVideo, getVideoByID, addViewByID };
+export { getAllVideos, searchVideos, createVideo, getVideoByID, addViewByID };

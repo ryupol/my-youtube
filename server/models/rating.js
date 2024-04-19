@@ -1,8 +1,8 @@
 import mongoose, { Schema } from "mongoose";
 
 const ratingSchema = new Schema({
-  user_id: { type: Schema.Types.ObjectId, ref: "users", required: true },
-  video_id: { type: Schema.Types.ObjectId, ref: "videos", required: true },
+  user_id: { type: Schema.Types.ObjectId, ref: "Users", required: true },
+  video_id: { type: Schema.Types.ObjectId, ref: "Videos", required: true },
   rating: { type: String, required: true }, // like, dislike
 });
 

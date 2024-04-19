@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import formatDate from "@/util/formatDate";
-import formatViews from "@/util/formatViews";
+import formatDate from "@/utils/formatDate";
+import formatViews from "@/utils/formatViews";
 import "./SearchCard.scss";
 
 function SearchCard({ video }) {
@@ -24,10 +24,10 @@ function SearchCard({ video }) {
           </p>
           <div className="owner-box">
             <div className="profile" onClick={handleToChannel}>
-              <img src={video.user.profile_url} alt="Profile Picture" />
+              <img src={video.user_id.profile_url} alt="Profile Picture" />
             </div>
             <span className="owner-name" onClick={handleToChannel}>
-              {video.user.name}
+              {video.user_id.name}
             </span>
           </div>
           <p className="description">{video.description}</p>

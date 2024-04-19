@@ -4,7 +4,7 @@
   margin: 0 auto;
   max-width: 1284px;
   width: 100%;
-  height: 207px;
+  height: 170px;
   border-radius: 12px;
   @include m.flex();
   overflow: hidden;
@@ -21,15 +21,8 @@
   height: 240px;
   .info {
     @include m.flex($direction: column, $item: flex-start);
-    .button-box {
-      @include m.flex();
-      height: 48px;
-      .unsub {
-        @include m.primary-button();
-      }
-      .sub {
-        @include m.secondary-button();
-      }
+    button {
+      margin-top: 8px;
     }
   }
   .name {

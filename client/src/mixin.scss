@@ -1,4 +1,9 @@
-@mixin flex($justify: space-between, $item: center, $flex: null, $direction: row) {
+@mixin flex(
+  $justify: space-between,
+  $item: center,
+  $flex: null,
+  $direction: row
+) {
   display: flex;
   justify-content: $justify;
   align-items: $item;
@@ -6,7 +11,13 @@
   flex-direction: $direction;
 }
 
-@mixin grid($justify: space-between, $item: center, $columns: null, $rows: null, $gap: null) {
+@mixin grid(
+  $justify: space-between,
+  $item: center,
+  $columns: null,
+  $rows: null,
+  $gap: null
+) {
   display: grid;
   justify-content: $justify;
   align-items: $item;
@@ -67,7 +78,12 @@
   }
 }
 
-@mixin tooltip {
+@mixin tooltip($hover-item) {
+  #{$hover-item}:hover + .tooltip {
+    opacity: 1;
+    transition: opacity 0.3s ease-in;
+    cursor: pointer;
+  }
   .tooltip {
     opacity: 0;
     border-radius: 4px;
@@ -87,15 +103,18 @@
 @mixin profile($width: 40px) {
   .profile {
     @if $width >= 140 {
-      width: $width + 24px;
+      padding-right: 24px;
     } @else if $width >= 32 {
-      width: $width + 12px;
+      padding-right: 12px;
     } @else {
-      width: $width + 6px;
+      padding-right: 6px;
     }
+    width: $width;
+    height: $width;
     img {
       border-radius: 50%;
-      width: $width;
+      width: 100%;
+      object-fit: cover;
     }
   }
 }

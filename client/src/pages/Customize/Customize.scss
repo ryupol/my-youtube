@@ -1,0 +1,55 @@
+@use "@/mixin.scss" as m;
+
+.customize {
+  @include m.flex($justify: center);
+  height: 100vh;
+  form {
+    @include m.flex($justify: center);
+  }
+}
+
+#file-input {
+  display: none;
+}
+.customize .profile-editor {
+  position: relative;
+  @include m.tooltip(".profile");
+  .profile {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    cursor: pointer;
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    &:hover .hover-icon {
+      opacity: 1;
+    }
+  }
+  .hover-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    padding: 8px;
+    height: 24px;
+    width: 24px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    img {
+      width: 100%;
+    }
+  }
+  .tooltip {
+    white-space: nowrap;
+  }
+}
+
+.customize .name-editor {
+  margin-left: 24px;
+}
