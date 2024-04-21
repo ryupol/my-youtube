@@ -8,7 +8,7 @@ function SideContent() {
   const videoId = getQueryValue("v");
   const { loading, videos } = useFetchVideos({ videoId });
 
-  if (loading) return "loading...";
+  if (loading) return;
 
   return (
     <div className="side-content">

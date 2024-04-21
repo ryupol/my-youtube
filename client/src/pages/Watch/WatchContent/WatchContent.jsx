@@ -38,7 +38,7 @@ function WatchContent() {
     }
   };
 
-  if (loading) return "loading...";
+  if (loading) return;
 
   return (
     <div className="watch-content">
