@@ -19,8 +19,8 @@ function SideLists() {
   const [activeItem, setActiveItem] = useState(null);
   const location = useLocation();
   const { username } = useParams();
-  const { user } = useUserSession();
-  const { loading, subList } = useUserSubscriptions();
+  const { loading: subLoading, subList } = useUserSubscriptions();
+  const { loading: userLoading, user } = useUserSession();
 
   useEffect(() => {
     if (location.pathname === "/") {
@@ -36,9 +36,9 @@ function SideLists() {
     }
   }, []);
 
-  if (loading) return "loading...";
+  if (subLoading || userLoading) return;
 
-  return ( 
+  return (
     <div className="side-list">
       <div className="main-menu">
         {[

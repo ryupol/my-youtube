@@ -3,8 +3,8 @@ import { useLocation } from "react-router-dom";
 
 import VideoCard from "@/components/VideoCard/VideoCard";
 import "./Home.scss";
-import useFetchVideos from "../../hooks/useFetchVideos";
-import useGridResize from "../../hooks/useGridResize";
+import useFetchVideos from "@/hooks/useFetchVideos";
+import useGridResize from "@/hooks/useGridResize";
 
 function Home() {
   const homeRef = useRef();
@@ -12,10 +12,8 @@ function Home() {
   const pathname = location.pathname;
   const { loading, videos } = useFetchVideos({ pathname });
   const gridColumns = useGridResize(homeRef);
-  // 1060 -> sidebar auto close
-  // 705 -> sidebar removed
 
-  if (loading) return "loading...";
+  if (loading) return;
 
   return (
     <div className="home" ref={homeRef} style={{ gridTemplateColumns: gridColumns }}>
