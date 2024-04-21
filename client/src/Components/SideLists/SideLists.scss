@@ -1,6 +1,7 @@
 @use "@/mixin.scss" as m;
 
-.sidebar .item {
+.sidebar .item,
+.side-modal .item {
   @include m.flex($justify: flex-start);
   padding: 6px 12px;
   border-radius: 10px;
@@ -17,7 +18,8 @@
   }
 }
 
-.sidebar .active {
+.sidebar .active,
+.side-modal .active {
   font-weight: 500;
 
   background-color: rgba(255, 255, 255, 0.1);
@@ -38,11 +40,20 @@
   .icon {
     display: flex;
     justify-content: center;
-
   }
   p {
     font-size: 10px;
     padding: 6px 0 0 0;
     margin: 0;
+  }
+}
+
+.small-sidebar .active {
+  background-color: transparent;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  &:active {
+    background-color: rgba(255, 255, 255, 0.2);
   }
 }

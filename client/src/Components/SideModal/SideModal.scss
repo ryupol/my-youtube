@@ -1,12 +1,14 @@
 @use "@/mixin.scss" as m;
 
-.sidebar {
+.side-modal {
+  z-index: 99;
+  transition: left 0.3s;
   margin-top: 56px;
   padding: 12px;
   box-sizing: border-box;
   position: fixed;
   top: 0;
-  left: 0;
+  left: -240px;
   bottom: 0;
   background-color: #0f0f0f;
   z-index: 10;
@@ -32,28 +34,14 @@
   }
 }
 
-.small-sidebar {
-  overflow-y: hidden;
-  width: 72px;
-  padding: 5px;
-  white-space: nowrap;
-
-  .main-menu,
-  .you-menu {
-    padding: 0;
-    border: none;
-  }
-  .header,
-  .sub-menu {
-    display: none;
-  }
-}
-
-@media (max-width: 600px) {
-  .small-sidebar {
-    display: none;
-  }
-  .content {
-    margin-left: 0;
+.side-modal-open {
+  left: 0;
+  .side-modal-bg {
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.7);
   }
 }

@@ -8,3 +8,9 @@
 .large-content {
   margin-left: 80px;
 }
+
+@media (max-width: 600px) {
+  .content {
+    margin-left: 0;
+  }
+}

@@ -1,0 +1,14 @@
+@use "@/mixin.scss" as m;
+
+.nav-start {
+  @include m.grid($columns: 57px 1fr);
+  padding-left: 16px;
+  height: 100%;
+  .menu {
+    @include m.icon-button();
+  }
+  .logo {
+    @include m.flex();
+    margin-right: 16px;
+  }
+}

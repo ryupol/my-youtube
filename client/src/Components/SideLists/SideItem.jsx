@@ -1,5 +1,3 @@
-import "./SideItem.scss";
-
 function SidebarItem({ link, active, icon, iconFill, text, roundBorder }) {
   return (
     <a href={link} className={`item ${active ? "active" : ""}`}>

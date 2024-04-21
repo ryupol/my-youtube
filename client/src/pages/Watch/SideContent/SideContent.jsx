@@ -1,30 +1,12 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-
 import VideoCard from "@/components/VideoCard/VideoCard";
 
+import useFetchVideos from "@/hooks/useFetchVideos";
 import getQueryValue from "@/utils/getQueryValue";
 import "./SideContent.scss";
 
 function SideContent() {
-  const [loading, setLoading] = useState(true);
-  const [videos, setVideos] = useState(null);
   const videoId = getQueryValue("v");
-
-  useEffect(() => {
-    const fetchVideos = async () => {
-      try {
-        const response = await axios.get("/api/videos");
-        const videos = response.data.filter((video) => video._id !== videoId);
-        setVideos(videos);
-        setLoading(false);
-      } catch (error) {
-        console.log(error);
-        setLoading(false);
-      }
-    };
-    fetchVideos();
-  }, []);
+  const { loading, videos } = useFetchVideos({ videoId });
 
   if (loading) return "loading...";
 

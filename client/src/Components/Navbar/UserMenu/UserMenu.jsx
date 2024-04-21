@@ -5,6 +5,7 @@ import axios from "axios";
 import useUserSession from "@/hooks/useUserSession";
 import useClickOutside from "@/hooks/useClickOutside";
 import createIcon from "@/assets/create.svg";
+import signoutIcon from "@/assets/sign-out.svg";
 import "./UserMenu.scss";
 
 function UserMenu() {
@@ -59,7 +60,10 @@ function UserMenu() {
                 </div>
               </div>
               <div className="footer-box">
-                <button onClick={handleLogout}>Sign out</button>
+                <div className="item" onClick={handleLogout}>
+                  <img src={signoutIcon} alt="" />
+                  <p>Sign out</p>
+                </div>
               </div>
             </div>
           </div>

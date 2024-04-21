@@ -5,21 +5,8 @@
   background-color: #0f0f0f;
   height: 56px;
   box-sizing: border-box;
-  padding: 0 16px;
   width: 100%;
   position: fixed;
   top: 0;
   z-index: 10;
-}
-
-.navbar .start {
-  @include m.grid($columns: 57px 1fr);
-  height: 100%;
-  .menu {
-    @include m.icon-button();
-  }
-  .logo {
-    @include m.flex();
-    margin-right: 16px;
-  }
 }

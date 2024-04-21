@@ -2,7 +2,7 @@
 
 .home {
   @include m.grid($gap: 16px, $item: top);
-  padding: 20px 24px;
+  padding: 20px 12px;
 }
 
 @media (max-width: 920px) {
