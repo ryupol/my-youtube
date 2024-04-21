@@ -13,7 +13,7 @@ import commentRouter from "./api/routes/comments.routes.js";
 dotenv.config();
 
 const app = express();
-PORT = 3000;
+const PORT = 3000;
 
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
