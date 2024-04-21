@@ -4,9 +4,12 @@
   @include m.flex();
   background-color: #0f0f0f;
   height: 56px;
-  box-sizing: border-box;
   width: 100%;
   position: fixed;
   top: 0;
   z-index: 10;
+}
+
+.nav-search {
+  @include m.grid($columns: 50px 1fr);
 }

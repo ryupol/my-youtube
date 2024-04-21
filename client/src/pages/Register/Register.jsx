@@ -34,18 +34,32 @@ function Register() {
 
   return (
     <div className="register">
-      <form onSubmit={handleSubmit}>
-        <h2 className="title">Register</h2>
-        <p>Username</p>
-        <input name="username" type="text" required ref={userInput} />
-        <p>Password</p>
-        <input name="password" type="password" required ref={passInput} />
-        <p>Confirm Password</p>
-        <input name="confirm" type="password" required ref={confInput} />
-        <br />
-        <br />
-        {signError && <p style={{ color: "red" }}>{signError}</p>}
-        <button>Register</button>
+      <form className="form" onSubmit={handleSubmit}>
+        <p className="form-title">Create your account</p>
+        <div className="input-container">
+          <input name="username" type="text" placeholder="Username" ref={userInput} required />
+        </div>
+        <div className="input-container">
+          <input name="password" type="password" placeholder="Password" ref={passInput} required />
+        </div>
+        <div className="input-container">
+          <input
+            name="confirm"
+            type="password"
+            placeholder="Confirm password"
+            ref={confInput}
+            required
+          />
+        </div>
+        <span className="error">{signError}</span>
+        <button type="submit" className="submit">
+          Register
+        </button>
+
+        <p className="sign-link">
+          <span>Already have account? </span>
+          <a href="/sign-in">Sign in</a>
+        </p>
       </form>
     </div>
   );

@@ -1,9 +1,4 @@
-@mixin flex(
-  $justify: space-between,
-  $item: center,
-  $flex: null,
-  $direction: row
-) {
+@mixin flex($justify: space-between, $item: center, $flex: null, $direction: row) {
   display: flex;
   justify-content: $justify;
   align-items: $item;
@@ -11,13 +6,7 @@
   flex-direction: $direction;
 }
 
-@mixin grid(
-  $justify: space-between,
-  $item: center,
-  $columns: null,
-  $rows: null,
-  $gap: null
-) {
+@mixin grid($justify: space-between, $item: center, $columns: null, $rows: null, $gap: null) {
   display: grid;
   justify-content: $justify;
   align-items: $item;

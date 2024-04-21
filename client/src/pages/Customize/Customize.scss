@@ -53,3 +53,19 @@
 .customize .name-editor {
   margin-left: 24px;
 }
+
+.button-container {
+  @include m.flex();
+  gap: 12px;
+  .cancel {
+    background-color: rgba(255, 255, 255, 0.1);
+    &:hover {
+      opacity: 1;
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+    &:active {
+      opacity: 1;
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+  }
+}

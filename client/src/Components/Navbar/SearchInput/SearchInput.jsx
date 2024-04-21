@@ -4,7 +4,7 @@ import { useNavigate, createSearchParams } from "react-router-dom";
 import searchIcon from "@/assets/search.svg";
 import "./SearchInput.scss";
 
-function SearchInput() {
+function SearchInput({ searchResize }) {
   const navigate = useNavigate();
   const [value, setValue] = useState("");
 
@@ -17,6 +17,8 @@ function SearchInput() {
       search: createSearchParams({ search_query: value }).toString(),
     });
   };
+
+  if (searchResize) return;
 
   return (
     <form className="searcher" onSubmit={handleSearch}>

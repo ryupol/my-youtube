@@ -1,20 +1,13 @@
 @use "@/mixin.scss" as m;
 
 .user-menu {
-  @include m.flex($justify: flex-end, $flex: 0 0 225px);
+  @include m.flex($justify: flex-end, $flex: 1 0 225px);
+  max-width: 100%;
   padding-right: 16px;
-}
-.upload {
-  position: relative;
-  .item {
-    @include m.icon-button();
-    margin: 0 10px;
-  }
-  @include m.tooltip(".item");
 }
 
 .user-box {
-  margin: 0 12px;
+  margin: 0 12px 0 22px;
   position: relative;
   font-weight: 500;
   .user-image {
@@ -71,4 +64,10 @@
 
 .close-menu {
   display: none;
+}
+
+@media (max-width: 600px) {
+  .user-menu {
+    flex-shrink: 1;
+  }
 }

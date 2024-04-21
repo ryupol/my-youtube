@@ -3,8 +3,27 @@
 .upload-container {
   width: 100%;
   @include m.flex($justify: center, $direction: column);
-  height: 100vh;
-  .button-container {
-    @include m.flex();
+  height: 80vh;
+  textarea {
+    resize: vertical;
+    overflow: auto;
+    min-height: 100px;
+  }
+
+  input[type="file"]::file-selector-button {
+    margin-right: 20px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 10px 20px;
+    border-radius: 6px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+    &:active {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
   }
 }

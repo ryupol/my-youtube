@@ -38,8 +38,8 @@ function SideLists() {
 
   if (loading) return "loading...";
 
-  return (
-    <>
+  return ( 
+    <div className="side-list">
       <div className="main-menu">
         {[
           {
@@ -111,7 +111,7 @@ function SideLists() {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 }
 

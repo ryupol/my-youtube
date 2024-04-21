@@ -8,8 +8,8 @@ const openSidebarSlice = createSlice({
   name: "openSidebar",
   initialState,
   reducers: {
-    setOpenSidebar(state) {
-      state.openSidebar = !state.openSidebar;
+    setOpenSidebar(state, action) {
+      state.openSidebar = action.payload;
     },
   },
 });

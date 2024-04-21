@@ -30,16 +30,25 @@ function Upload() {
 
   return (
     <div className="upload-container">
-      <form onSubmit={handleSubmit}>
-        <h3 className="title">Upload videos</h3>
-        <p>Title</p>
-        <input name="title" type="text" ref={titleInput} />
-        <p>Upload</p>
-        <input type="file" name="image" ref={imagInput} />
-        <p>description</p>
-        <textarea name="description" ref={descInput} />
+      <form className="form" onSubmit={handleSubmit}>
+        <p className="form-title">Upload video</p>
+        <div className="input-container">
+          <input
+            name="title"
+            type="text"
+            placeholder="Enter Video Title"
+            ref={titleInput}
+            required
+          />
+        </div>
+        <input type="file" name="image" ref={imagInput} required/>
+        <div className="input-container">
+          <textarea name="description" placeholder="Enter Description" ref={descInput} required />
+        </div>
         <br />
-        <button>Upload</button>
+        <button className="submit" type="submit">
+          Upload Video
+        </button>
       </form>
     </div>
   );

@@ -4,6 +4,8 @@
   padding: 4px;
   border-radius: 4px;
   @include m.profile(36px);
+  max-width: 500px;
+  margin: 0 auto;
   &:active {
     outline: 1px solid rgb(241, 241, 241);
     background-color: rgba(255, 255, 255, 0.2);

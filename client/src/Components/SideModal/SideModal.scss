@@ -1,47 +1,43 @@
 @use "@/mixin.scss" as m;
 
-.side-modal {
-  z-index: 99;
-  transition: left 0.3s;
-  margin-top: 56px;
-  padding: 12px;
-  box-sizing: border-box;
-  position: fixed;
-  top: 0;
-  left: -240px;
-  bottom: 0;
-  background-color: #0f0f0f;
-  z-index: 10;
-  width: 240px;
-  overflow-y: auto;
-  .header {
-    font-size: 16px;
-  }
-  .main-menu,
-  .you-menu {
-    padding-bottom: 12px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  }
-  .sub-menu img {
-    max-width: 24px;
-  }
-
-  scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
-  &:hover {
-    scrollbar-color: #888 transparent;
-    transition: scrollbar-color 0.3s;
+.modal {
+  .nav-start {
+    position: fixed;
+    top: 0;
+    left: -240px;
+    width: 240px;
+    box-sizing: border-box;
+    z-index: 12;
+    transition: left 0.3s;
   }
 }
 
-.side-modal-open {
-  left: 0;
-  .side-modal-bg {
-    right: 0;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    position: fixed;
-    background-color: rgba(0, 0, 0, 0.7);
+.side-modal {
+  z-index: 12 !important;
+  margin-top: 0 !important;
+  top: 56px !important;
+  left: -240px;
+  padding: 0 !important;
+  transition: left 0.3s !important;
+  .side-list {
+    padding: 12px;
+    overflow-y: auto;
   }
+}
+.open {
+  .nav-start,
+  .side-modal {
+    left: 0;
+  }
+}
+
+.side-modal-open-bg {
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  position: fixed;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.7);
+  transition: background-color 0.3s ease-in-out;
 }

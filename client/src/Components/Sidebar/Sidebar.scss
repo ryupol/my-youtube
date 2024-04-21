@@ -1,12 +1,14 @@
 @use "@/mixin.scss" as m;
 
 .sidebar {
+    left: 0;
+}
+.sidebar, .side-modal {
   margin-top: 56px;
   padding: 12px;
   box-sizing: border-box;
   position: fixed;
   top: 0;
-  left: 0;
   bottom: 0;
   background-color: #0f0f0f;
   z-index: 10;
@@ -49,7 +51,7 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 775px) {
   .small-sidebar {
     display: none;
   }

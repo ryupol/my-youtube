@@ -53,7 +53,7 @@ function Customize() {
 
   return (
     <div className="customize">
-      <form onSubmit={handleSubmit}>
+      <form className="form" onSubmit={handleSubmit}>
         <div className="profile-editor">
           <label htmlFor="file-input">
             <div className="profile">
@@ -64,24 +64,27 @@ function Customize() {
             </div>
             <p className="tooltip">Edit profile picture</p>
           </label>
-          <input
-            id="file-input"
-            type="file"
-            ref={fileInput}
-            onChange={handleFileChange}
-          />
+          <input id="file-input" type="file" ref={fileInput} onChange={handleFileChange} />
         </div>
         <div className="name-editor">
-          <h2 className="title">Edit Profile</h2>
-          <p className="name">Name</p>
-          <input
-            name="name"
-            type="text"
-            defaultValue={user.name}
-            ref={nameInput}
-            required
-          />
-          <button type="submit">Confirm</button>
+          <h2 className="form-title">Edit Profile</h2>
+          <div className="input-container">
+            <input name="name" type="text" defaultValue={user.name} ref={nameInput} required />
+          </div>
+          <div className="button-container">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                navigate(`/channel/${user.username}`, { replace: true });
+              }}
+              className="cancel"
+            >
+              Cancel
+            </button>
+            <button type="submit" className="submit">
+              Confirm
+            </button>
+          </div>
         </div>
       </form>
     </div>

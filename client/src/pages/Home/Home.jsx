@@ -1,7 +1,6 @@
-import { useContext, useRef } from "react";
+import { useRef } from "react";
 import { useLocation } from "react-router-dom";
 
-// import useResizeHandler from "@/hooks/useResizeHandler";
 import VideoCard from "@/components/VideoCard/VideoCard";
 import "./Home.scss";
 import useFetchVideos from "../../hooks/useFetchVideos";
@@ -19,11 +18,7 @@ function Home() {
   if (loading) return "loading...";
 
   return (
-    <div
-      className="home"
-      ref={homeRef}
-      style={{ gridTemplateColumns: gridColumns }}
-    >
+    <div className="home" ref={homeRef} style={{ gridTemplateColumns: gridColumns }}>
       {videos.map((video, index) => (
         <VideoCard video={video} key={index} />
       ))}

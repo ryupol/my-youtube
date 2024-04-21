@@ -1,14 +1,19 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 
+import { setNavSearch } from "@/store/Slicer/navSearchSlice";
 import useUserSession from "@/hooks/useUserSession";
 import useClickOutside from "@/hooks/useClickOutside";
 import createIcon from "@/assets/create.svg";
+import searchIcon from "@/assets/search.svg";
 import signoutIcon from "@/assets/sign-out.svg";
 import "./UserMenu.scss";
+import IconItem from "../../IconItem/IconItem";
 
-function UserMenu() {
+function UserMenu({ searchResize }) {
+  const dispatch = useDispatch();
   const [openMenu, setOpenMenu] = useState(false);
 
   const navigate = useNavigate();
@@ -28,18 +33,20 @@ function UserMenu() {
     <>
       {user ? (
         <div className="user-menu">
-          <div className="upload">
-            <button className="item" onClick={() => navigate("/upload")}>
-              <img src={createIcon} alt="Create icon" />
-            </button>
-            <p className="tooltip">Create</p>
-          </div>
+          {searchResize ? (
+            <IconItem
+              name={"search"}
+              icon={searchIcon}
+              callback={() => dispatch(setNavSearch(true))}
+            />
+          ) : (
+            <></>
+          )}
+
+          <IconItem name={"Create"} icon={createIcon} callback={() => navigate("/upload")} />
 
           <div className="user-box" ref={profileImage}>
-            <button
-              className="user-image"
-              onClick={() => setOpenMenu(!openMenu)}
-            >
+            <button className="user-image" onClick={() => setOpenMenu(!openMenu)}>
               <img src={user.profile_url} alt="Profile" />
             </button>
 
@@ -51,10 +58,7 @@ function UserMenu() {
                 <div className="user-info">
                   <p>{user.name}</p>
                   <p>{user.username}</p>
-                  <a
-                    href={`/channel/${user.username}`}
-                    className="view-channel"
-                  >
+                  <a href={`/channel/${user.username}`} className="view-channel">
                     View your channel
                   </a>
                 </div>

@@ -7,7 +7,7 @@ function useGridResize(ref) {
     const handleResize = () => {
       if (ref.current) {
         const width = ref.current.offsetWidth;
-        if (width < 680) {
+        if (width < 675) {
           setGridColumns("1fr");
         } else if (width < 1010) {
           setGridColumns("repeat(2, 1fr)");

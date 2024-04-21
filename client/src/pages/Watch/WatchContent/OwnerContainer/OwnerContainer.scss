@@ -5,6 +5,9 @@
   .owner-box {
     @include m.flex($justify: start);
     @include m.profile();
+    .profile {
+      padding-right: 24px;
+    }
     .text-box {
       margin-right: 24px;
       line-height: 1.4;
@@ -18,5 +21,4 @@
       }
     }
   }
-
 }

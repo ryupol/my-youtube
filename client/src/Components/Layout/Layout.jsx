@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
+import { setNavSearch } from "@/store/Slicer/navSearchSlice";
 import SideModal from "../SideModal/SideModal";
 import Navbar from "@/components/Navbar/Navbar";
 import Sidebar from "@/components/Sidebar/Sidebar";
@@ -9,17 +10,26 @@ import Sidebar from "@/components/Sidebar/Sidebar";
 import "./Layout.scss";
 
 function Layout() {
-  const ref = useRef(null);
+  const dispatch = useDispatch();
   const { openSidebar } = useSelector((state) => state.openSidebar);
+  const [searchResize, setSearchResize] = useState(false);
   const [useModal, setUseModal] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
-      if (width <= 1275) {
+      if (width < 1275) {
         setUseModal(true);
       } else {
         setUseModal(false);
+      }
+
+      // navbar
+      if (width < 500) {
+        setSearchResize(true);
+      } else {
+        dispatch(setNavSearch(false));
+        setSearchResize(false);
       }
     };
     handleResize();
@@ -28,13 +38,11 @@ function Layout() {
   }, []);
 
   return (
-    <div className="layout" ref={ref}>
-      <Navbar />
-      <Sidebar openSidebar={openSidebar} useModal={useModal} />
-      <SideModal openSidebar={openSidebar} useModal={useModal} />
-      <div
-        className={`content${openSidebar && !useModal ? "" : " large-content"}`}
-      >
+    <div className="layout">
+      <Navbar searchResize={searchResize} />
+      <Sidebar useModal={useModal} />
+      <SideModal useModal={useModal} />
+      <div className={`content${openSidebar && !useModal ? "" : " large-content"}`}>
         <Outlet />
       </div>
     </div>

@@ -30,19 +30,23 @@ function SignIn() {
 
   return (
     <div className="signin">
-      <form onSubmit={handleSubmit}>
-        <h2 className="title">Sign In</h2>
-        <p>Username</p>
-        <input name="username" type="text" ref={userInput} required />
-        <p>Password</p>
-        <input name="password" type="password" ref={passInput} required />
-        <br />
-        <br />
-        {signError && <p style={{ color: "red" }}>{signError}</p>}
-        <div className="button-container">
-          <a href="/register">Register</a>
-          <button type="submit">Sign In</button>
+      <form className="form" onSubmit={handleSubmit}>
+        <p className="form-title">Sign in to your account</p>
+        <div className="input-container">
+          <input name="username" type="text" placeholder="Username" ref={userInput} required />
         </div>
+        <div className="input-container">
+          <input name="password" type="password" placeholder="Password" ref={passInput} required />
+        </div>
+        <span className="error">{signError}</span>
+        <button type="submit" className="submit">
+          Sign in
+        </button>
+
+        <p className="sign-link">
+          <span>No account? </span>
+          <a href="/register">Sign up</a>
+        </p>
       </form>
     </div>
   );
