@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import session from "express-session";
+import MongoDBStore from "connect-mongodb-session";
 
 import connectDB from "./connect.js";
 import userRouter from "./api/routes/users.routes.js";
@@ -19,12 +20,24 @@ app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 connectDB(process.env.MONGODB_URL);
 
+const MongoDBStoreSession = MongoDBStore(session);
+
+const store = new MongoDBStoreSession({
+  uri: process.env.MONGODB_URL,
+  collection: "sessions",
+});
+
+store.on("error", function (error) {
+  console.error("Session store error:", error);
+});
+
 app.use(
   session({
     secret: "secret_key",
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 24 * 60 * 60 * 1000 }, // 1 day
+    store: store,
+    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }, // 30 days
   })
 );
 

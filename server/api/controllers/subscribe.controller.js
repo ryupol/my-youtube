@@ -45,9 +45,7 @@ const deleteSub = async (req, res) => {
 
 const getAllSubBySession = async (req, res) => {
   try {
-    const userId = mongoose.Types.ObjectId.createFromHexString(
-      req.session.user.id
-    );
+    const userId = req.session.user.id;
     const sub = await Subscribe.find({ user_id: userId }).populate({
       path: "sub_to_user_id",
       select: "name username profile_url",
@@ -61,9 +59,7 @@ const getAllSubBySession = async (req, res) => {
 const getSubByID = async (req, res) => {
   try {
     const user_id = req.session.user.id;
-    const sub_to_user_id = mongoose.Types.ObjectId.createFromHexString(
-      req.params.id
-    );
+    const sub_to_user_id = mongoose.Types.ObjectId.createFromHexString(req.params.id);
     const sub = await Subscribe.findOne({ user_id, sub_to_user_id });
     res.status(200).json(sub);
   } catch (error) {
