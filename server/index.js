@@ -47,6 +47,12 @@ app.use(
   })
 );
 
+// Set Content Security Policy headers
+app.use((req, res, next) => {
+  res.setHeader('Content-Security-Policy', "default-src 'self'");
+  next();
+});
+
 app.get("/", (req, res) => {
   res.json({ message: "Hello from Server" });
 });
