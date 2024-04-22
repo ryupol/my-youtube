@@ -16,7 +16,13 @@ dotenv.config();
 const app = express();
 const PORT = 3000;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+    methods: ["POST", "GET"],
+    credentials: true,
+  })
+);
 app.use(express.json({ limit: "50mb" }));
 connectDB(process.env.MONGODB_URL);
 
