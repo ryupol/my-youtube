@@ -62,8 +62,8 @@ app.use("/api/videos", videoRouter);
 app.use("/api/subscribe", subscribeRouter);
 app.use("/api/rating", ratingRouter);
 app.use("/api/comments", commentRouter);
-app.use("/images/thumbnail", express.static("assets/images/thumbnail"));
-app.use("/images/profile", express.static("assets/images/profile"));
+app.use("/images/thumbnail", express.static("public/thumbnail"));
+app.use("/images/profile", express.static("public/profile"));
 
 app.listen(PORT, () => {
   console.log(`✅ Server is running on port ${PORT}`);
