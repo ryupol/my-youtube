@@ -14,7 +14,7 @@ import commentRouter from "./api/routes/comments.routes.js";
 dotenv.config();
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT
 
 app.use(
   cors({
