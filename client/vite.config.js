@@ -13,7 +13,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://youtube-backend-api.vercel.app/", //"http://localhost:3000",
+        target: "http://34.16.201.71", //"http://localhost:3000",
         changeOrigin: true,
       },
     },
