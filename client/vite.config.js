@@ -11,9 +11,10 @@ export default defineConfig({
   },
   plugins: [react()],
   server: {
+    port: 80,
     proxy: {
       "/api": {
-        target: "http://34.16.201.71", //"http://localhost:3000",
+        target: "https://my-youtube-kas6.onrender.com/", //"http://localhost:3000",
         changeOrigin: true,
       },
     },
