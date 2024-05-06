@@ -21,13 +21,13 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="/feed/subscriptions" element={<Home />} />
-          <Route path="/feed/likes" element={<Home />} />
-          <Route path="/upload" element={<Upload />} />
-          <Route path="/result" element={<Result />} />
-          <Route path="/watch" element={<Watch />} />
-          <Route path="/channel/:username" element={<Channel />} />
-          <Route path="/:username" element={<Channel />} />
+          <Route path="feed/subscriptions" element={<Home />} />
+          <Route path="feed/likes" element={<Home />} />
+          <Route path="upload" element={<Upload />} />
+          <Route path="result" element={<Result />} />
+          <Route path="watch" element={<Watch />} />
+          <Route path="channel/:username" element={<Channel />} />
+          <Route path=":username" element={<Channel />} />
         </Route>
         <Route path="/register" element={<Register />} />
         <Route path="/sign-in" element={<SignIn />} />
