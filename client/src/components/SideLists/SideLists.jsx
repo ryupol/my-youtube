@@ -99,7 +99,7 @@ function SideLists() {
 
       <div className="sub-menu">
         <h3 className="header">Subscriptions</h3>
-        {subList.length > 0
+        {subList && Array.isArray(subList) && subList.length > 0
           ? subList.map((data) => (
               <SideItem
                 text={data.sub_to_user_id.name}
