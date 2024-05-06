@@ -11,5 +11,7 @@
 }
 
 .nav-search {
-  @include m.grid($columns: 50px 1fr);
+  @include m.flex();
+  margin: 0 16px;
+  width: 100%;
 }
