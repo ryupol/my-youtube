@@ -30,7 +30,7 @@ function SignIn() {
 
   return (
     <div className="signin">
-      <form className="form" onSubmit={handleSubmit} method="POST">
+      <form className="form" onSubmit={handleSubmit}>
         <p className="form-title">Sign in to your account</p>
         <div className="input-container">
           <input name="username" type="text" placeholder="Username" ref={userInput} required />
