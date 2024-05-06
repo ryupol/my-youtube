@@ -11,7 +11,6 @@ export default defineConfig({
   },
   plugins: [react()],
   server: {
-    port: 80,
     proxy: {
       "/api": {
         target: "https://my-youtube-kas6.onrender.com/", //"http://localhost:3000",

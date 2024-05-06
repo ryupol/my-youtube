@@ -99,17 +99,19 @@ function SideLists() {
 
       <div className="sub-menu">
         <h3 className="header">Subscriptions</h3>
-        {subList.map((data) => (
-          <SideItem
-            text={data.sub_to_user_id.name}
-            link={`/${data.sub_to_user_id.username}`}
-            active={activeItem === data.sub_to_user_id.username}
-            icon={data.sub_to_user_id.profile_url}
-            iconFill={data.sub_to_user_id.profile_url}
-            roundBorder={true}
-            key={data.sub_to_user_id.username}
-          />
-        ))}
+        {subList && Array.isArray(subList) && subList.length > 0
+          ? subList.map((data) => (
+              <SideItem
+                text={data.sub_to_user_id.name}
+                link={`/${data.sub_to_user_id.username}`}
+                active={activeItem === data.sub_to_user_id.username}
+                icon={data.sub_to_user_id.profile_url}
+                iconFill={data.sub_to_user_id.profile_url}
+                roundBorder={true}
+                key={data.sub_to_user_id.username}
+              />
+            ))
+          : null}
       </div>
     </div>
   );

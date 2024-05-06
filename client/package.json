@@ -1,14 +1,16 @@
 {
   "name": "client",
-  "private": true,
+  "private": false,
   "version": "0.0.0",
   "homepage": ".",
   "type": "module",
+  "homepage": "/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "vite preview"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.3",

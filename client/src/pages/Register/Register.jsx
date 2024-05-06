@@ -20,7 +20,10 @@ function Register() {
     formData.append("confirm", confInput.current.value);
 
     try {
-      const response = await axios.post("/api/users/create", Object.fromEntries(formData));
+      const response = await axios.post(
+        "/api/users/create",
+        Object.fromEntries(formData)
+      );
       const { message, user } = response.data;
       if (user) {
         navigate("/", { replace: true });
@@ -37,10 +40,22 @@ function Register() {
       <form className="form" onSubmit={handleSubmit}>
         <p className="form-title">Create your account</p>
         <div className="input-container">
-          <input name="username" type="text" placeholder="Username" ref={userInput} required />
+          <input
+            name="username"
+            type="text"
+            placeholder="Username"
+            ref={userInput}
+            required
+          />
         </div>
         <div className="input-container">
-          <input name="password" type="password" placeholder="Password" ref={passInput} required />
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            ref={passInput}
+            required
+          />
         </div>
         <div className="input-container">
           <input
