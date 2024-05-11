@@ -27,7 +27,9 @@ function UserMenu({ searchResize }) {
     navigate("/sign-in");
   };
 
-  if (loading) return "Loading...";
+  if (loading) {
+    navigate("/sign-in");
+  }
 
   return (
     <>
@@ -73,7 +75,9 @@ function UserMenu({ searchResize }) {
           </div>
         </div>
       ) : (
-        <a href="/sign-in">Sign in</a>
+        <a className="user-menu" href="/sign-in">
+          
+        </a>
       )}
     </>
   );
