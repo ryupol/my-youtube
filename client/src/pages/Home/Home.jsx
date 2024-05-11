@@ -16,14 +16,10 @@ function Home() {
   if (loading) return;
 
   return (
-    <div
-      className="home"
-      ref={homeRef}
-      style={{ gridTemplateColumns: gridColumns }}
-    >
-      {Array.isArray(videos)
-        ? videos.map((video, index) => <VideoCard video={video} key={index} />)
-        : null}
+    <div className="home" ref={homeRef} style={{ gridTemplateColumns: gridColumns }}>
+      {videos.map((video, index) => (
+        <VideoCard video={video} key={index} />
+      ))}
     </div>
   );
 }
