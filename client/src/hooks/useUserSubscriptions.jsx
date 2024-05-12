@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function useUserSubscriptions() {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [subList, setSubList] = useState(null);
 
@@ -11,6 +13,7 @@ function useUserSubscriptions() {
         const response = await axios.get("/api/subscribe/session");
         setSubList(response.data);
       } catch (error) {
+        navigate("/sign-in");
         console.log(error);
       } finally {
         setLoading(false);
