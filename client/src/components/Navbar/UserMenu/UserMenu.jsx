@@ -27,9 +27,6 @@ function UserMenu({ searchResize }) {
     navigate("/sign-in");
   };
 
-  if (loading) {
-    navigate("/sign-in");
-  }
 
   return (
     <>

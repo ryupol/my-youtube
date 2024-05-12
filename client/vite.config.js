@@ -13,7 +13,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://my-youtube-kas6.onrender.com/", //"http://localhost:3000",
+        target: "https://my-youtube-kas6.onrender.com", // "https://my-youtube-kas6.onrender.com/",
         changeOrigin: true,
       },
     },
