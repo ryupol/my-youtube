@@ -14,15 +14,9 @@ import commentRouter from "./api/routes/comments.routes.js";
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT
+const PORT = process.env.PORT;
 
-app.use(
-  cors({
-    origin: "*",
-    methods: ["POST", "GET"],
-    credentials: true,
-  })
-);
+app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 connectDB(process.env.MONGODB_URL);
 
@@ -49,7 +43,7 @@ app.use(
 
 // Set Content Security Policy headers
 app.use((req, res, next) => {
-  res.setHeader('Content-Security-Policy', "default-src 'self'");
+  res.setHeader("Content-Security-Policy", "default-src 'self'");
   next();
 });
 

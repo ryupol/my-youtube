@@ -109,10 +109,10 @@ const signOut = async (req, res) => {
 };
 
 const getUserSession = async (req, res) => {
-  const userSession = req.session.user;
-  if (!userSession) {
+  if (!req.session) {
     return res.status(401).json({ message: "User not authenticated" });
   }
+  const userSession = req.session.user;
   return res.status(200).json(userSession);
 };
 
